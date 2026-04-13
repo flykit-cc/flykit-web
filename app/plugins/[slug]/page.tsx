@@ -19,6 +19,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 import { CodeBlock } from "@/components/code-block";
+import { Markdown } from "@/components/markdown";
 import { getMarketplace, getPlugin } from "@/lib/plugins";
 
 export async function generateStaticParams() {
@@ -142,18 +143,22 @@ export default async function PluginPage({
             </TabsContent>
 
             <TabsContent value="readme">
-              <p className="font-sans text-base text-muted-foreground">
-                The full README lives in the plugin&apos;s repo. View it on{" "}
-                <Link
-                  href={plugin.repo}
-                  className="text-foreground underline underline-offset-4"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub
-                </Link>
-                .
-              </p>
+              {plugin.readme ? (
+                <Markdown>{plugin.readme}</Markdown>
+              ) : (
+                <p className="font-sans text-base text-muted-foreground">
+                  The full README lives in the plugin&apos;s repo. View it on{" "}
+                  <Link
+                    href={plugin.repo}
+                    className="text-foreground underline underline-offset-4"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    GitHub
+                  </Link>
+                  .
+                </p>
+              )}
             </TabsContent>
 
             <TabsContent value="skills" className="space-y-3">

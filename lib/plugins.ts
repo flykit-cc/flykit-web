@@ -16,6 +16,7 @@ export type Plugin = {
   repo: string;
   license: string;
   stars: number;
+  readme: string | null;
 };
 
 export type Marketplace = {
@@ -55,6 +56,11 @@ type WebJson = Pick<
   | "sources"
 >;
 
+type FallbackPlugin = Omit<Plugin, "readme"> & { readme?: string | null };
+type FallbackMarketplace = Omit<Marketplace, "plugins"> & {
+  plugins: FallbackPlugin[];
+};
+
 const REPO = "flykit-cc/flykit";
 const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
 const MARKETPLACE_URL = `${BASE_RAW}/.claude-plugin/marketplace.json`;
@@ -86,8 +92,36 @@ async function fetchWebJson(pluginName: string): Promise<WebJson | null> {
   }
 }
 
+async function fetchReadme(pluginName: string): Promise<string | null> {
+  try {
+    const res = await fetch(`${BASE_RAW}/plugins/${pluginName}/README.md`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+    return await res.text();
+  } catch {
+    return null;
+  }
+}
+
+function normalizeFallbackPlugin(p: FallbackPlugin): Plugin {
+  return { ...p, readme: p.readme ?? null };
+}
+
+function normalizeFallback(): Marketplace {
+  const raw = fallback as FallbackMarketplace;
+  return {
+    name: raw.name,
+    owner: raw.owner,
+    plugins: raw.plugins.map(normalizeFallbackPlugin),
+  };
+}
+
 function fallbackPluginByName(name: string): Plugin | undefined {
-  return (fallback as Marketplace).plugins.find((p) => p.name === name);
+  const match = (fallback as FallbackMarketplace).plugins.find(
+    (p) => p.name === name
+  );
+  return match ? normalizeFallbackPlugin(match) : undefined;
 }
 
 export async function getMarketplace(): Promise<Marketplace> {
@@ -95,14 +129,20 @@ export async function getMarketplace(): Promise<Marketplace> {
     const res = await fetch(MARKETPLACE_URL, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error(`marketplace.json fetch failed: ${res.status}`);
     const remote = (await res.json()) as RawMarketplace;
-    if (!remote?.plugins?.length) return fallback as Marketplace;
+    if (!remote?.plugins?.length) return normalizeFallback();
 
     const stars = await fetchStars();
 
     const plugins = await Promise.all(
       remote.plugins.map(async (mp) => {
-        const web = await fetchWebJson(mp.name);
-        if (!web) return fallbackPluginByName(mp.name);
+        const [web, readme] = await Promise.all([
+          fetchWebJson(mp.name),
+          fetchReadme(mp.name),
+        ]);
+        if (!web) {
+          const fb = fallbackPluginByName(mp.name);
+          return fb ? { ...fb, readme: readme ?? fb.readme } : undefined;
+        }
 
         const plugin: Plugin = {
           slug: mp.name,
@@ -120,13 +160,14 @@ export async function getMarketplace(): Promise<Marketplace> {
           repo: `https://github.com/${REPO}`,
           license: mp.license ?? "MIT",
           stars,
+          readme,
         };
         return plugin;
       })
     );
 
     const resolved = plugins.filter((p): p is Plugin => Boolean(p));
-    if (resolved.length === 0) return fallback as Marketplace;
+    if (resolved.length === 0) return normalizeFallback();
 
     return {
       name: remote.name,
@@ -137,7 +178,7 @@ export async function getMarketplace(): Promise<Marketplace> {
       plugins: resolved,
     };
   } catch {
-    return fallback as Marketplace;
+    return normalizeFallback();
   }
 }
 
