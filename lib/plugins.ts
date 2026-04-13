@@ -64,7 +64,34 @@ type FallbackMarketplace = Omit<Marketplace, "plugins"> & {
 const REPO = "flykit-cc/flykit";
 const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
 const MARKETPLACE_URL = `${BASE_RAW}/.claude-plugin/marketplace.json`;
+const ANNOUNCEMENT_URL = `${BASE_RAW}/.flykit/announcement.json`;
 const GITHUB_API = `https://api.github.com/repos/${REPO}`;
+
+export type Announcement = {
+  text: string;
+  href: string;
+  label: string;
+  id: string;
+};
+
+export async function fetchAnnouncement(): Promise<Announcement | null> {
+  try {
+    const res = await fetch(ANNOUNCEMENT_URL, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const data = (await res.json()) as Partial<Announcement>;
+    if (!data || !data.text || !data.href || !data.label || !data.id) {
+      return null;
+    }
+    return {
+      text: data.text,
+      href: data.href,
+      label: data.label,
+      id: data.id,
+    };
+  } catch {
+    return null;
+  }
+}
 
 async function fetchStars(): Promise<number> {
   try {
