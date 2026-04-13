@@ -36,7 +36,12 @@ export async function getMarketplace(): Promise<Marketplace> {
     const remote = (await res.json()) as Partial<Marketplace>;
     // Merge minimally — if remote is missing fields we expect for rendering,
     // fall back to local data so the site still builds.
-    if (!remote.plugins || remote.plugins.length === 0) {
+    // The canonical marketplace.json (what Claude Code reads) uses a thin
+    // schema without `slug` / rich display fields. Until per-plugin web.json
+    // sidecars exist, detect that case and use local fallback.
+    const hasRichSchema =
+      remote.plugins?.every((p) => typeof p?.slug === "string") ?? false;
+    if (!remote.plugins || remote.plugins.length === 0 || !hasRichSchema) {
       return fallback as Marketplace;
     }
     return remote as Marketplace;
