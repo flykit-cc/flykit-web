@@ -24,18 +24,21 @@ Copies mcpmarket.com closely. Tokens in `app/globals.css`:
 
 ## Pages
 
-- `/` — hero, available plugins grid, how-it-works, FAQ, footer
+- `/` — hero, available plugins grid, how-it-works, open-source, FAQ, footer
 - `/plugins/[slug]` — static pages generated from marketplace data (`generateStaticParams`)
 - `/docs` — getting started long-form
+- `/privacy`, `/terms` — legal boilerplate
+- `not-found.tsx` — custom 404 with ASCII sweep + 5s countdown redirect
 
 ## Companion repo — where plugin data comes from
 
 Plugin metadata is **not stored here**. It lives in **`github.com/flykit-cc/flykit`** — the marketplace repo. Locally, most contributors keep it as a sibling folder.
 
 Flow:
-1. `lib/plugins.ts` fetches `.claude-plugin/marketplace.json` + plugin READMEs from the flykit repo via GitHub raw URLs at build time (ISR: refresh every hour)
-2. Falls back to `lib/plugins-fallback.json` if GitHub is unreachable (offline/first builds)
-3. When flykit pushes, its GitHub Action pings this project's Vercel deploy hook → rebuild → fresh data
+1. `lib/plugins.ts` fetches `.claude-plugin/marketplace.json` + each plugin's `web.json` sidecar from the flykit repo via GitHub raw URLs (ISR: 1 hr)
+2. Also fetches live star count from GitHub REST API
+3. Falls back to `lib/plugins-fallback.json` if any GitHub fetch fails (offline builds)
+4. When flykit pushes, its `notify-web.yml` dispatches this repo's `deploy.yml` via the GitHub API (using a PAT) — full rebuild within ~1 min
 
 **Do not duplicate plugin metadata here.** If a plugin needs to be added or edited, do it in the flykit repo — this site will pick it up automatically.
 
@@ -50,13 +53,7 @@ PRs from contributors also deploy via the same action using the maintainer's Ver
 
 ## Status
 
-- [x] Scaffolded, `pnpm build` succeeds, 6 static pages generated
-- [ ] Not yet pushed to GitHub
-- [ ] Vercel project not yet created
-- [ ] Secrets not yet added
-- [ ] DNS not yet pointed at Vercel
-
-Full setup steps are in the flykit repo at `SETUP.md`.
+Work-in-progress items and bugs live on [GitHub Issues](https://github.com/flykit-cc/flykit-web/issues). This file describes stable architecture, not current state.
 
 ## Conventions
 
