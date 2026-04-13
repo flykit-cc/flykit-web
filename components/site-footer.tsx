@@ -28,6 +28,7 @@ export function SiteFooter() {
             title="Docs"
             links={[
               { label: "Getting started", href: "/docs" },
+              { label: "Changelog", href: "/changelog" },
               { label: "Install Claude Code", href: "https://docs.claude.com/en/docs/claude-code" },
               { label: "Plugin spec", href: "https://github.com/flykit-cc/flykit" },
             ]}
