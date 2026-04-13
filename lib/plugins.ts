@@ -145,3 +145,53 @@ export async function getPlugin(slug: string): Promise<Plugin | undefined> {
   const m = await getMarketplace();
   return m.plugins.find((p) => p.slug === slug);
 }
+
+export type ChangelogEntry = {
+  sha: string;
+  date: string;
+  message: string;
+  author: { login: string; avatarUrl: string };
+  url: string;
+};
+
+type RawCommit = {
+  sha: string;
+  html_url: string;
+  commit: {
+    message: string;
+    author?: { name?: string; date?: string };
+    committer?: { date?: string };
+  };
+  author: { login?: string; avatar_url?: string } | null;
+};
+
+export async function fetchChangelog(): Promise<ChangelogEntry[]> {
+  try {
+    const res = await fetch(
+      `${GITHUB_API}/commits?path=plugins&per_page=30`,
+      {
+        next: { revalidate: 3600 },
+        headers: { Accept: "application/vnd.github+json" },
+      }
+    );
+    if (!res.ok) return [];
+    const data = (await res.json()) as RawCommit[];
+    return data.map((c) => {
+      const firstLine = (c.commit?.message ?? "").split("\n")[0];
+      const date =
+        c.commit?.author?.date ?? c.commit?.committer?.date ?? "";
+      return {
+        sha: c.sha,
+        date,
+        message: firstLine,
+        author: {
+          login: c.author?.login ?? c.commit?.author?.name ?? "unknown",
+          avatarUrl: c.author?.avatar_url ?? "",
+        },
+        url: c.html_url,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
