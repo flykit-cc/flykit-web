@@ -5,6 +5,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AnnouncementBar } from "@/components/announcement-bar";
+import { fetchAnnouncement } from "@/lib/plugins";
 import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
@@ -20,18 +21,19 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://flykit.cc"),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const announcement = await fetchAnnouncement();
   return (
     <html
       lang="en"
       className={`${inter.variable} ${GeistMono.variable}`}
     >
       <body className="min-h-screen flex flex-col">
-        <AnnouncementBar />
+        <AnnouncementBar announcement={announcement} />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
