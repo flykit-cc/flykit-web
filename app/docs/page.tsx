@@ -22,7 +22,7 @@ export default function DocsPage() {
             <span className="text-muted-foreground">flykit</span>
           </h1>
           <p className="font-sans text-lg text-muted-foreground">
-            Four steps to get a flykit plugin running inside Claude Code.
+            Five steps to get a flykit plugin running inside Claude Code.
           </p>
         </header>
 
@@ -61,6 +61,22 @@ export default function DocsPage() {
 
         <Step
           n={4}
+          title="Open Claude Code in a folder"
+          body={
+            <>
+              Plugins act on your current working directory — they read and
+              write files there. No project to scaffold, no repo required.
+              Just <code className="font-mono text-foreground">cd</code> into
+              whatever folder you want the plugin to operate on (e.g. a folder
+              where you keep bank exports for <em>steuer</em>) and launch
+              Claude Code from there.
+            </>
+          }
+          code="cd ~/taxes/2024 && claude"
+        />
+
+        <Step
+          n={5}
           title="Run a skill"
           body="Each plugin exposes one or more skills. Invoke them like any other slash command."
           code="/skill calculate-euer"
