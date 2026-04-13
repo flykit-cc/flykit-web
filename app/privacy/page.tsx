@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Privacy — flykit",
   description:
-    "flykit.cc is a static site. No analytics, no cookies, no personal data collected.",
+    "flykit.cc uses Vercel Analytics for anonymous pageviews. No cookies, no cross-site tracking, no PII.",
 };
 
 export default function PrivacyPage() {
@@ -22,8 +22,9 @@ export default function PrivacyPage() {
             <span className="text-muted-foreground">policy</span>
           </h1>
           <p className="font-sans text-lg text-muted-foreground">
-            The short version: flykit.cc is a static marketing site. We don&apos;t
-            want your data and we don&apos;t collect it.
+            The short version: flykit.cc uses Vercel Analytics for anonymous
+            pageview counts. No cookies, no cross-site tracking, no personal
+            data.
           </p>
           <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
             Last updated: 2026-04-13
@@ -63,8 +64,18 @@ export default function PrivacyPage() {
             What we collect
           </h2>
           <p className="font-sans text-base text-muted-foreground">
-            Nothing. We don&apos;t run analytics, we don&apos;t set cookies, and
-            we don&apos;t embed third-party trackers on this site.
+            Anonymous pageview counts via{" "}
+            <Link
+              href="https://vercel.com/docs/analytics/privacy-policy"
+              target="_blank"
+              rel="noreferrer"
+              className="text-foreground underline underline-offset-4"
+            >
+              Vercel Analytics
+            </Link>
+            . No cookies are set, no cross-site tracking, and no personally
+            identifiable information is collected. We don&apos;t embed any
+            other third-party trackers.
           </p>
         </section>
 
