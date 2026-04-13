@@ -33,12 +33,12 @@ export default function DocsPage() {
             <>
               flykit plugins run inside Claude Code. Install it from{" "}
               <Link
-                href="https://docs.claude.com/claude-code"
+                href="https://docs.claude.com/en/docs/claude-code"
                 target="_blank"
                 rel="noreferrer"
                 className="text-foreground underline underline-offset-4"
               >
-                docs.claude.com/claude-code
+                docs.claude.com
               </Link>
               . Any recent version supports plugins.
             </>

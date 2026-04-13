@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           <p className="font-sans text-base text-muted-foreground">
             flykit.cc is a catalog of open-source{" "}
             <Link
-              href="https://docs.claude.com/claude-code"
+              href="https://docs.claude.com/en/docs/claude-code"
               target="_blank"
               rel="noreferrer"
               className="text-foreground underline underline-offset-4"
