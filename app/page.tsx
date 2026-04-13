@@ -36,9 +36,18 @@ export default async function HomePage() {
               <span className="text-muted-foreground">Open source</span>
             </div>
 
-            <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-col items-center gap-4">
+              <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                <span
+                  aria-hidden
+                  style={{ color: "var(--terminal-green)" }}
+                >
+                  {">"}
+                </span>
+                <span>for Claude Code</span>
+              </p>
               <h1
-                className="font-mono text-foreground"
+                className="font-mono"
                 style={{
                   fontSize: "clamp(44px, 8vw, 84px)",
                   fontWeight: 500,
@@ -46,33 +55,15 @@ export default async function HomePage() {
                   lineHeight: 1.05,
                 }}
               >
-                <span
-                  aria-hidden
-                  style={{ color: "var(--terminal-green)" }}
-                  className="mr-2"
-                >
-                  {">"}
-                </span>
-                Claude Code
-              </h1>
-              <p
-                className="font-mono"
-                style={{
-                  fontSize: "clamp(22px, 3vw, 32px)",
-                  fontWeight: 500,
-                  letterSpacing: "-0.8px",
-                  lineHeight: 1.2,
-                }}
-              >
                 <span className="text-foreground">plugins </span>
                 <span className="text-muted-foreground">for </span>
                 <RotatingWord />
-              </p>
+              </h1>
             </div>
 
             <p className="max-w-xl font-sans text-base text-muted-foreground md:text-lg">
-              Open-source Claude Code plugins for real-world workflows.
-              Install, run, contribute.
+              flykit is an open-source marketplace of Claude Code plugins for
+              real-world workflows. Install, run, contribute.
             </p>
 
             <div className="w-full max-w-xl">
@@ -323,9 +314,14 @@ export default async function HomePage() {
             <AccordionItem value="q6">
               <AccordionTrigger>Where is my data stored?</AccordionTrigger>
               <AccordionContent>
-                Locally. Plugins read from your filesystem and write reports
-                back to it. flykit itself runs no servers and ships no
-                telemetry.
+                Plugins run locally in your Claude Code session and read and
+                write files on your machine — flykit operates no backend of its
+                own. This site is hosted on Vercel, which logs incoming
+                requests per their policy; see{" "}
+                <Link href="/privacy" className="underline">
+                  /privacy
+                </Link>{" "}
+                for details.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
