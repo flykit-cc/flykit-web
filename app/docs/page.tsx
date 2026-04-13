@@ -61,18 +61,30 @@ export default function DocsPage() {
 
         <Step
           n={4}
-          title="Open Claude Code in a folder"
+          title="Open Claude Code"
           body={
             <>
-              Plugins act on your current working directory — they read and
-              write files there. No project to scaffold, no repo required.
-              Just <code className="font-mono text-foreground">cd</code> into
-              whatever folder you want the plugin to operate on (e.g. a folder
-              where you keep bank exports for <em>steuer</em>) and launch
-              Claude Code from there.
+              Claude Code is a CLI — you launch it from a folder in your
+              terminal, and that folder becomes the session's working
+              directory. Whether it matters depends on the plugin:
+              <ul className="mt-3 list-none space-y-2 font-sans text-base text-muted-foreground">
+                <li>
+                  <strong className="text-foreground">Skills that touch files</strong> (like{" "}
+                  <em>steuer</em>, which reads bank exports and writes reports)
+                  — <code className="font-mono text-foreground">cd</code> into
+                  the folder where your data lives.
+                </li>
+                <li>
+                  <strong className="text-foreground">Slash commands, subagents, and prompt-only plugins</strong>{" "}
+                  — the folder doesn&apos;t matter. Open Claude Code anywhere.
+                </li>
+                <li>
+                  <strong className="text-foreground">Hooks and MCP servers</strong> — context depends on the plugin.
+                  Check its README.
+                </li>
+              </ul>
             </>
           }
-          code="cd ~/taxes/2024 && claude"
         />
 
         <Step
