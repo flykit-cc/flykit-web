@@ -65,9 +65,14 @@ export default async function PluginPage({
               target="_blank"
               rel="noreferrer"
             >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border bg-muted text-xs font-medium text-foreground">
-                {plugin.author.slice(0, 1).toUpperCase()}
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://github.com/${plugin.author}.png?size=64`}
+                alt={`${plugin.author} on GitHub`}
+                width={24}
+                height={24}
+                className="h-6 w-6 rounded-full border border-border bg-muted object-cover"
+              />
               by {plugin.author}
             </Link>
             <span className="text-muted-foreground" aria-hidden>·</span>
