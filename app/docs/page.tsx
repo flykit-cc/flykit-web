@@ -94,6 +94,33 @@ export default function DocsPage() {
           code="/skill calculate-euer"
         />
 
+        <section className="space-y-6 border-t border-border pt-10">
+          <div className="space-y-2">
+            <h2 className="font-mono text-2xl font-medium tracking-tight">
+              Uninstalling
+            </h2>
+            <p className="font-sans text-base text-muted-foreground">
+              Remove a single plugin, or unregister the whole marketplace.
+            </p>
+          </div>
+          <div className="space-y-3">
+            <p className="font-sans text-sm text-muted-foreground">
+              Remove one plugin:
+            </p>
+            <div className="max-w-xl">
+              <CodeBlock code="/plugin uninstall steuer@flykit" />
+            </div>
+          </div>
+          <div className="space-y-3">
+            <p className="font-sans text-sm text-muted-foreground">
+              Unregister the marketplace entirely (also removes every plugin installed from it):
+            </p>
+            <div className="max-w-xl">
+              <CodeBlock code="/plugin marketplace remove flykit" />
+            </div>
+          </div>
+        </section>
+
         <section className="space-y-4 border-t border-border pt-10">
           <h2 className="font-mono text-2xl font-medium tracking-tight">
             What next?
