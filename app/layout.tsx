@@ -19,6 +19,16 @@ export const metadata: Metadata = {
   description:
     "Open-source Claude Code plugins for real-world workflows. Install, run, contribute.",
   metadataBase: new URL("https://flykit.cc"),
+  alternates: { canonical: "/" },
+};
+
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "flykit",
+  url: "https://flykit.cc",
+  description:
+    "Open-source Claude Code plugins for real-world workflows. Install, run, contribute.",
 };
 
 export default async function RootLayout({
@@ -33,6 +43,11 @@ export default async function RootLayout({
       className={`${inter.variable} ${GeistMono.variable}`}
     >
       <body className="min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
+        />
         <AnnouncementBar announcement={announcement} />
         <SiteHeader />
         <main className="flex-1">{children}</main>
