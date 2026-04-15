@@ -44,7 +44,7 @@ export default async function HomePage() {
                 >
                   {">"}
                 </span>
-                <span>for Claude Code</span>
+                <span>Claude Code</span>
               </p>
               <h1
                 className="font-mono"
