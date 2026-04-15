@@ -22,9 +22,39 @@ import { CodeBlock } from "@/components/code-block";
 import { Markdown } from "@/components/markdown";
 import { getMarketplace, getPlugin } from "@/lib/plugins";
 
+const BASE_URL = "https://flykit.cc";
+
 export async function generateStaticParams() {
   const m = await getMarketplace();
   return m.plugins.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const plugin = await getPlugin(slug);
+  if (!plugin) return { title: "Plugin not found — flykit" };
+  const url = `${BASE_URL}/plugins/${plugin.slug}`;
+  const title = `${plugin.displayName} — flykit`;
+  return {
+    title,
+    description: plugin.tagline,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description: plugin.tagline,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title,
+      description: plugin.tagline,
+    },
+  };
 }
 
 export default async function PluginPage({
@@ -36,8 +66,35 @@ export default async function PluginPage({
   const plugin = await getPlugin(slug);
   if (!plugin) notFound();
 
+  const url = `${BASE_URL}/plugins/${plugin.slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: plugin.displayName,
+    description: plugin.description || plugin.tagline,
+    url,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Cross-platform",
+    author: { "@type": "Person", name: plugin.author, url: plugin.authorUrl },
+    license: plugin.license
+      ? `https://spdx.org/licenses/${plugin.license}.html`
+      : undefined,
+    codeRepository: plugin.repo,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    isPartOf: {
+      "@type": "CollectionPage",
+      name: "flykit",
+      url: BASE_URL,
+    },
+  };
+
   return (
     <div className="container mx-auto px-6 py-12">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <nav
         aria-label="Breadcrumb"
         className="mb-8 flex items-center gap-1.5 font-mono text-xs text-muted-foreground"
