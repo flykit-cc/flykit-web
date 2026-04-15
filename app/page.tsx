@@ -31,7 +31,7 @@ export default async function HomePage() {
                 className="inline-block h-2 w-2 rounded-full"
                 style={{ backgroundColor: "var(--terminal-green)" }}
               />
-              <span className="text-foreground">{plugins.length} Plugin</span>
+              <span className="text-foreground">{plugins.length} {plugins.length === 1 ? "Plugin" : "Plugins"}</span>
               <span className="text-muted-foreground">·</span>
               <span className="text-muted-foreground">Open source</span>
             </div>
