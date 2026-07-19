@@ -8,12 +8,15 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 items-center justify-between px-6">
         <Link href="/" className="flex items-center">
+          {/* Pixel-art wordmark: render at exactly half its 139×72 source so
+              the 2px blocks map cleanly to 1px — any other scale blurs it. */}
           <Image
             src="/flykit-cc-logo.png"
             alt="flykit.cc"
-            width={46}
-            height={24}
+            width={139}
+            height={72}
             priority
+            className="h-9 w-auto [image-rendering:pixelated] mix-blend-multiply"
           />
         </Link>
 
@@ -23,6 +26,12 @@ export function SiteHeader() {
             className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             Plugins
+          </Link>
+          <Link
+            href="/#tools"
+            className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Tools
           </Link>
           <Link
             href="/docs"
