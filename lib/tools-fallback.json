@@ -1,0 +1,32 @@
+{
+  "tools": [
+    {
+      "name": "ghostcode",
+      "slug": "ghostcode",
+      "description": "Ghostty launcher for Claude Code — project picker, per-project tints, model/provider/mode switcher.",
+      "repo": "https://github.com/flykit-cc/ghostcode",
+      "npm": "@flykit/ghostcode",
+      "install": "npm install -g @flykit/ghostcode",
+      "category": "workflow",
+      "keywords": ["ghostty", "launcher", "picker"],
+      "license": "MIT",
+      "version": "0.2.0",
+      "web": "./tools/ghostcode/web.json"
+    }
+  ],
+  "webByTool": {
+    "ghostcode": {
+      "displayName": "GhostCode",
+      "author": "kaiomp",
+      "authorUrl": "https://github.com/kaiomp",
+      "categories": ["Workflow", "Ghostty"],
+      "tagline": "Swap models, tint your projects, and spin up pre-configured Claude Code terminals.",
+      "description": "GhostCode is a Ghostty launcher for Claude Code.",
+      "install": "npm install -g @flykit/ghostcode",
+      "externalRepo": "https://github.com/flykit-cc/ghostcode",
+      "features": [],
+      "useCases": [],
+      "screenshots": []
+    }
+  }
+}
