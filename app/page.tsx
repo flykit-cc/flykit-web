@@ -13,11 +13,14 @@ import {
 
 import { CodeBlock } from "@/components/code-block";
 import { RotatingWord } from "@/components/rotating-word";
+import { ToolCard } from "@/components/tool-card";
 import { getMarketplace } from "@/lib/plugins";
+import { getTools } from "@/lib/tools";
 
 export default async function HomePage() {
   const marketplace = await getMarketplace();
   const plugins = marketplace.plugins;
+  const tools = await getTools();
 
   return (
     <>
@@ -146,6 +149,30 @@ export default async function HomePage() {
                 </Link>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools */}
+      <section id="tools" className="border-b border-border">
+        <div className="container mx-auto px-6 py-20">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <h2
+              className="font-mono"
+              style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 500, letterSpacing: "-1px" }}
+            >
+              <span className="text-foreground">Companion </span>
+              <span className="text-muted-foreground">Tools</span>
+            </h2>
+          </div>
+          <p className="mb-10 max-w-2xl font-sans text-base text-muted-foreground">
+            Standalone tools for Claude Code. Not plugins — install via npm or brew.
+          </p>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {tools.map((t) => (
+              <ToolCard key={t.slug} tool={t} />
+            ))}
           </div>
         </div>
       </section>
