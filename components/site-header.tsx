@@ -1,18 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/logo";
 import { MobileNav } from "@/components/mobile-nav";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 items-center justify-between px-6">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-mono text-base font-semibold tracking-tight"
-        >
-          <Logo size={18} />
-          flykit
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/flykit-cc-logo.png"
+            alt="flykit.cc"
+            width={46}
+            height={24}
+            priority
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
