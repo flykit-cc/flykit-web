@@ -20,6 +20,7 @@ export function SiteFooter() {
             title="Plugins"
             links={[
               { label: "All plugins", href: "/#plugins" },
+              { label: "Flow", href: "/plugins/flow" },
               { label: "Steuer", href: "/plugins/steuer" },
               { label: "Suggest a plugin", href: "https://github.com/flykit-cc/flykit/issues/new" },
             ]}
