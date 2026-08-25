@@ -5,7 +5,7 @@ import { ChevronRight, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CodeBlock } from "@/components/code-block";
-import { getTool, getTools } from "@/lib/tools";
+import { ecosystemLabel, getTool, getTools } from "@/lib/tools";
 
 const BASE_URL = "https://flykit.cc";
 const RAW_BASE = "https://raw.githubusercontent.com/flykit-cc/flykit/main";
@@ -121,6 +121,7 @@ export default async function ToolPage({
             </Link>
             <span className="text-muted-foreground" aria-hidden>·</span>
             <div className="flex flex-wrap gap-2">
+              <Badge>{ecosystemLabel(tool.ecosystem)}</Badge>
               {tool.web.categories.map((c) => (
                 <Badge key={c} variant="outline">{c}</Badge>
               ))}

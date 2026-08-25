@@ -22,7 +22,7 @@
 
 ---
 
-Companion repo to [**`flykit-cc/flykit`**](https://github.com/flykit-cc/flykit), the open-source Claude Code plugin marketplace.
+Companion repo to [**`flykit-cc/flykit`**](https://github.com/flykit-cc/flykit), the open-source registry of plugins and tools for coding agents.
 
 ## Thinking of contributing?
 

@@ -47,7 +47,7 @@ export default async function HomePage() {
                 >
                   {">"}
                 </span>
-                <span>Claude Code</span>
+                <span>Claude Code · DeepSeek Harness</span>
               </p>
               <h1
                 className="font-mono"
@@ -65,8 +65,8 @@ export default async function HomePage() {
             </div>
 
             <p className="max-w-xl font-sans text-base text-muted-foreground md:text-lg">
-              flykit is an open-source marketplace of Claude Code plugins for
-              real-world workflows. Install, run, contribute.
+              flykit is an open-source registry of plugins and tools for coding
+              agents. Install, run, contribute.
             </p>
 
             <div className="w-full max-w-xl">
@@ -166,7 +166,7 @@ export default async function HomePage() {
             </h2>
           </div>
           <p className="mb-10 max-w-2xl font-sans text-base text-muted-foreground">
-            Standalone tools for Claude Code. Not plugins — install via npm or brew.
+            Standalone tools that work alongside your agent. Not plugins, install via npm or brew.
           </p>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -248,7 +248,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="outline">MIT licensed</Badge>
-              <Badge variant="outline">Built for Claude Code</Badge>
+              <Badge variant="outline">Built for coding agents</Badge>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -290,10 +290,10 @@ export default async function HomePage() {
             <AccordionItem value="q1">
               <AccordionTrigger>What is flykit?</AccordionTrigger>
               <AccordionContent>
-                flykit is an open-source marketplace of Claude Code plugins
-                focused on real-world workflows — taxes, finance, ops. Each
-                plugin bundles slash commands, skills, and prompts you can
-                install with one command.
+                flykit is an open-source registry of plugins and tools for
+                coding agents — Claude Code plugins like flow and steuer,
+                DeepSeek Harness plugins like dsh-claude-live, plus standalone
+                companion tools. Claude Code plugins install with one command.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
