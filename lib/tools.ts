@@ -3,8 +3,20 @@ import fallback from "./tools-fallback.json";
 const REPO = "flykit-cc/flykit";
 const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
 
+export type Ecosystem = "claude-code" | "dsh";
+
+export const ECOSYSTEM_LABELS: Record<Ecosystem, string> = {
+  "claude-code": "Claude Code",
+  dsh: "DeepSeek Harness",
+};
+
+export function ecosystemLabel(e: Ecosystem | undefined): string {
+  return ECOSYSTEM_LABELS[e ?? "claude-code"] ?? "Claude Code";
+}
+
 export type Tool = {
   name: string;
+  ecosystem?: Ecosystem;
   slug: string;
   description: string;
   repo: string;
@@ -57,7 +69,17 @@ export async function getTools(): Promise<FullTool[]> {
     tools.map(async (t) => {
       const webPath = t.web.replace(/^\.\//, "");
       const web = await fetchJSON<ToolWeb>(`${BASE_RAW}/${webPath}`);
-      return { ...t, web: web ?? fb.webByTool[t.slug] };
+      const resolved = web ?? fb.webByTool[t.slug];
+      // web.json omits optional list fields; default them so consumers can just read .length
+      return {
+        ...t,
+        web: resolved && {
+          ...resolved,
+          features: resolved.features ?? [],
+          useCases: resolved.useCases ?? [],
+          screenshots: resolved.screenshots ?? [],
+        },
+      };
     })
   );
 

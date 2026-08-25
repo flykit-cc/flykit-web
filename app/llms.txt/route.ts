@@ -11,11 +11,11 @@ export async function GET() {
   lines.push("# flykit");
   lines.push("");
   lines.push(
-    "> Open-source Claude Code plugins for real-world workflows. Install, run, contribute.",
+    "> Open-source plugins and tools for coding agents. Claude Code, DeepSeek Harness, and more.",
   );
   lines.push("");
   lines.push(
-    "flykit is a community marketplace of plugins for Claude Code, Anthropic's official CLI.",
+    "flykit is a community registry of plugins and tools for coding agents, spanning Claude Code and DeepSeek Harness.",
   );
   lines.push(
     "Each plugin adds skills, slash commands, subagents, or hooks that solve a concrete workflow —",

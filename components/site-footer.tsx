@@ -12,7 +12,7 @@ export function SiteFooter() {
               flykit
             </div>
             <p className="font-sans text-sm text-muted-foreground max-w-xs">
-              Open-source Claude Code plugins for real-world workflows.
+              Open-source plugins and tools for coding agents.
             </p>
           </div>
 

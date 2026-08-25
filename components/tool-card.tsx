@@ -4,7 +4,7 @@ import { Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { CodeBlock } from "@/components/code-block";
-import type { FullTool } from "@/lib/tools";
+import { ecosystemLabel, type FullTool } from "@/lib/tools";
 
 export function ToolCard({ tool }: { tool: FullTool }) {
   return (
@@ -25,6 +25,7 @@ export function ToolCard({ tool }: { tool: FullTool }) {
         <CardDescription className="line-clamp-3">{tool.web.tagline}</CardDescription>
 
         <div className="flex flex-wrap gap-2">
+          <Badge>{ecosystemLabel(tool.ecosystem)}</Badge>
           {tool.web.categories.slice(0, 3).map((c) => (
             <Badge key={c} variant="outline">{c}</Badge>
           ))}
