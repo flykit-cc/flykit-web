@@ -13,26 +13,36 @@ export async function GET() {
   lines.push("# flykit");
   lines.push("");
   lines.push(
-    "> Open-source tools and plugins for AI coding agents — Claude Code and DeepSeek Harness. Install, run, contribute.",
+    "> An open-source cockpit for agentic development — Claude Code, Pi and Codex in one window, powered by DeepSeek Harness — plus the registry that fills it.",
   );
   lines.push("");
   lines.push(
-    "flykit is a community registry of tools and plugins for AI coding agents. Today that spans",
+    "flykit is two things. The cockpit (dsh-flykit) is a plugin for DeepSeek Harness that turns its",
   );
   lines.push(
-    "Claude Code (Anthropic's official CLI) and DeepSeek Harness (dsh). A Claude Code plugin adds",
+    "web UI into a workspace for agentic development: Claude Code, Pi, Codex or a shell as real",
   );
   lines.push(
-    "skills, slash commands, subagents, or hooks; a dsh plugin extends the harness itself. Everything",
+    "terminals beside a file explorer, a searchable model picker over every configured provider, and",
   );
   lines.push(
-    "is MIT-licensed and lives at",
+    "a status line. The registry carries the plugins and tools those agents use — Claude Code plugins",
+  );
+  lines.push(
+    "add skills, slash commands, subagents and hooks; harness plugins extend the harness itself.",
+  );
+  lines.push(
+    "Everything is MIT-licensed, runs on your own machine, and lives at",
   );
   lines.push("https://github.com/flykit-cc/flykit.");
   lines.push("");
   lines.push("## Getting started");
   lines.push("");
-  lines.push(`- [Install guide](${BASE_URL}/docs): step-by-step setup for both the Claude Code marketplace and DeepSeek Harness.`);
+  lines.push(`- [Install guide](${BASE_URL}/docs): the cockpit on DeepSeek Harness first, then Claude Code plugins.`);
+  lines.push("");
+  lines.push("## The cockpit");
+  lines.push("");
+  lines.push(`- [dsh-flykit](${BASE_URL}/tools/dsh-flykit): the agent cockpit for DeepSeek Harness. \`dsh plugin --profile web add dsh-flykit\``);
   lines.push("");
   lines.push("## Claude Code plugins");
   lines.push("");

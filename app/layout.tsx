@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "flykit — tools for AI coding agents",
+  title: "flykit — a cockpit for agentic development",
   description:
-    "Open-source tools and plugins for AI coding agents — Claude Code and DeepSeek Harness. Install, run, contribute.",
+    "An open-source cockpit for agentic development: run Claude Code, Pi and Codex side by side with your files, terminals and models in one window. Powered by DeepSeek Harness.",
   metadataBase: new URL("https://flykit.cc"),
   alternates: { canonical: "/" },
 };
@@ -28,7 +28,7 @@ const siteJsonLd = {
   name: "flykit",
   url: "https://flykit.cc",
   description:
-    "Open-source tools and plugins for AI coding agents — Claude Code and DeepSeek Harness. Install, run, contribute.",
+    "An open-source cockpit for agentic development: run Claude Code, Pi and Codex side by side with your files, terminals and models in one window. Powered by DeepSeek Harness.",
 };
 
 export default async function RootLayout({

@@ -66,21 +66,21 @@ export function ogImage() {
       >
         <div style={{ display: "flex", gap: 12, fontSize: 20, letterSpacing: 4, color: MUTED }}>
           <span style={{ color: GREEN }}>&gt;</span>
-          <span>CLAUDE CODE · DEEPSEEK HARNESS</span>
+          <span>POWERED BY DEEPSEEK HARNESS</span>
         </div>
 
         <div style={{ display: "flex", gap: 20, fontSize: 68, fontWeight: 500, letterSpacing: -2 }}>
-          <span>plugins</span>
-          <span style={{ color: MUTED }}>for your workflow</span>
+          <span>Fly your</span>
+          <span style={{ color: MUTED }}>agents</span>
         </div>
 
         <div style={{ display: "flex", fontSize: 24, color: MUTED, maxWidth: 860, textAlign: "center" }}>
-          Fly your agents. An open-source registry of tools for AI coding agents.
+          A cockpit for agentic development — Claude Code, Pi and Codex in one window.
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18, marginTop: 12 }}>
-          <Command label="CLAUDE CODE" code="claude /plugin marketplace add flykit-cc/flykit" />
-          <Command label="DEEPSEEK HARNESS" code="dsh plugin --profile web add dsh-flykit" />
+          <Command label="START HERE" code="dsh plugin --profile web add dsh-flykit" />
+          <Command label="CLAUDE CODE PLUGINS" code="claude /plugin marketplace add flykit-cc/flykit" />
         </div>
       </div>
     ),

@@ -22,16 +22,16 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-6 md:flex">
           <Link
-            href="/#plugins"
+            href="/tools/dsh-flykit"
             className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            Plugins
+            Cockpit
           </Link>
           <Link
-            href="/#tools"
+            href="/#catalog"
             className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            Tools
+            Catalog
           </Link>
           <Link
             href="/docs"

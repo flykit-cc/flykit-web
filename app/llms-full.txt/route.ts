@@ -21,6 +21,14 @@ export async function GET() {
     "This is the long-form LLM-friendly view of flykit. For a compact index, see /llms.txt.",
   );
   lines.push("");
+  lines.push("## Install (the cockpit)");
+  lines.push("");
+  lines.push("```");
+  lines.push("npm install -g @deepseek-ai/dsh");
+  lines.push("dsh plugin --profile web add dsh-flykit");
+  lines.push("dsh web");
+  lines.push("```");
+  lines.push("");
   lines.push("## Install (Claude Code plugins)");
   lines.push("");
   lines.push("```");

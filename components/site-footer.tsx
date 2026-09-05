@@ -12,16 +12,17 @@ export function SiteFooter() {
               flykit
             </div>
             <p className="font-sans text-sm text-muted-foreground max-w-xs">
-              Open-source tools for AI coding agents — Claude Code and DeepSeek
-              Harness.
+              An open-source cockpit for agentic development, and the registry
+              that fills it. Powered by DeepSeek Harness.
             </p>
           </div>
 
           <FooterCol
             title="Catalog"
             links={[
+              { label: "The cockpit", href: "/tools/dsh-flykit" },
+              { label: "Tools & harness plugins", href: "/#tools" },
               { label: "Claude Code plugins", href: "/#plugins" },
-              { label: "Agent tools", href: "/#tools" },
               { label: "Flow", href: "/plugins/flow" },
               { label: "Steuer", href: "/plugins/steuer" },
               { label: "Suggest a tool", href: "https://github.com/flykit-cc/flykit/issues/new" },
@@ -32,7 +33,7 @@ export function SiteFooter() {
             links={[
               { label: "Getting started", href: "/docs" },
               { label: "Changelog", href: "/changelog" },
-              { label: "Install Claude Code", href: "https://docs.claude.com/en/docs/claude-code" },
+              { label: "DeepSeek Harness", href: "https://github.com/deepseek-ai/deepseek-harness" },
               { label: "Plugin spec", href: "https://github.com/flykit-cc/flykit" },
             ]}
           />
