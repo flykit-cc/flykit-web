@@ -15,7 +15,7 @@
 <br/>
 
 <a href="https://flykit.cc">
-  <img src="./app/opengraph-image.png" alt="flykit.cc" width="720" />
+  <img src="https://flykit.cc/opengraph-image" alt="flykit — a cockpit for agentic development" width="720" />
 </a>
 
 </div>
@@ -71,7 +71,8 @@ app/
   plugins/[slug]/         Plugin detail (static, generated from marketplace.json)
   tools/[slug]/           Tool detail (static, generated from tools.json)
   privacy/, terms/        Legal
-  opengraph-image.png     OG + Twitter card (social previews)
+  opengraph-image.tsx     OG + Twitter card, rendered from _og/image.tsx
+  _og/                    the card and its fonts
   icon.tsx, apple-icon.tsx Favicons
   not-found.tsx           404 with ASCII countdown
 components/
