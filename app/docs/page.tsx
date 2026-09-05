@@ -132,7 +132,7 @@ export default function DocsPage() {
             <p className="font-sans text-base text-muted-foreground">
               flykit also ships plugins for{" "}
               <Link
-                href="https://github.com/deepseek-ai/dsh"
+                href="https://github.com/deepseek-ai/deepseek-harness"
                 target="_blank"
                 rel="noreferrer"
                 className="text-foreground underline underline-offset-4"
