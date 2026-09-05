@@ -11,7 +11,11 @@
       "displayName": "Steuer",
       "author": "kaiomp",
       "authorUrl": "https://github.com/kaiomp",
-      "categories": ["Finance", "Germany", "Freelancer"],
+      "categories": [
+        "Finance",
+        "Germany",
+        "Freelancer"
+      ],
       "tagline": "German freelancer tax filing — fetch transactions, classify with AI, calculate EUR, file via ELSTER.",
       "description": "Steuer is a Claude Code plugin that automates the German freelancer tax workflow end-to-end. It parses Wise bank statements, classifies transactions into income and expense categories, calculates your EUR (Einnahmen-Ueberschuss-Rechnung), and walks you through filing via ELSTER.",
       "features": [
@@ -41,12 +45,19 @@
         }
       ],
       "sources": [
-        { "label": "Wise Activities API", "url": "https://api.wise.com" },
-        { "label": "Frankfurter ECB rates", "url": "https://api.frankfurter.dev" }
+        {
+          "label": "Wise Activities API",
+          "url": "https://api.wise.com"
+        },
+        {
+          "label": "Frankfurter ECB rates",
+          "url": "https://api.frankfurter.dev"
+        }
       ],
-      "repo": "https://github.com/flykit-cc/flykit",
+      "repo": "https://github.com/flykit-cc/steuer",
       "license": "MIT",
-      "stars": 0
+      "stars": 0,
+      "version": "0.3.0"
     },
     {
       "slug": "flow",
@@ -130,12 +141,13 @@
         },
         {
           "label": "flykit marketplace",
-          "url": "https://github.com/flykit-cc/flykit"
+          "url": "https://github.com/flykit-cc/flow"
         }
       ],
-      "repo": "https://github.com/flykit-cc/flykit",
+      "repo": "https://github.com/flykit-cc/flow",
       "license": "MIT",
-      "stars": 0
+      "stars": 0,
+      "version": "0.8.0"
     }
   ]
 }

@@ -80,7 +80,7 @@ export function ogImage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18, marginTop: 12 }}>
           <Command label="START HERE" code="dsh plugin --profile web add dsh-flykit" />
-          <Command label="CLAUDE CODE PLUGINS" code="claude /plugin marketplace add flykit-cc/flykit" />
+          <Command label="CLAUDE CODE PLUGINS" code="claude /plugin marketplace add flykit-cc/plugins" />
         </div>
       </div>
     ),

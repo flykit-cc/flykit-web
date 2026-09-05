@@ -40,7 +40,7 @@ export function SiteHeader() {
             Docs
           </Link>
           <Link
-            href="https://github.com/flykit-cc/flykit"
+            href="https://github.com/flykit-cc"
             className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
             target="_blank"
             rel="noreferrer"

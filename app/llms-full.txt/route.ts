@@ -32,7 +32,7 @@ export async function GET() {
   lines.push("## Install (Claude Code plugins)");
   lines.push("");
   lines.push("```");
-  lines.push("claude /plugin marketplace add flykit-cc/flykit");
+  lines.push("claude /plugin marketplace add flykit-cc/plugins");
   lines.push("/plugin install <name>@flykit");
   lines.push("```");
   lines.push("");

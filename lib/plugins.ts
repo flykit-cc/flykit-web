@@ -1,4 +1,5 @@
 import announcement from "@/content/announcement.json";
+import { getTools } from "./tools";
 import fallback from "./plugins-fallback.json";
 
 export type Plugin = {
@@ -16,6 +17,8 @@ export type Plugin = {
   sources: { label: string; url: string }[];
   repo: string;
   license: string;
+  /** Declared in the manifest; the number `/plugin update` compares against. */
+  version?: string;
   stars: number;
   readme: string | null;
 };
@@ -29,7 +32,7 @@ export type Marketplace = {
 type RawMarketplacePlugin = {
   name: string;
   description?: string;
-  source?: string;
+  source?: string | { source?: string; repo?: string };
   version?: string;
   category?: string;
   keywords?: string[];
@@ -62,10 +65,15 @@ type FallbackMarketplace = Omit<Marketplace, "plugins"> & {
   plugins: FallbackPlugin[];
 };
 
-const REPO = "flykit-cc/flykit";
-const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
-const MARKETPLACE_URL = `${BASE_RAW}/.claude-plugin/marketplace.json`;
-const GITHUB_API = `https://api.github.com/repos/${REPO}`;
+/**
+ * The manifest is a menu: each entry names the repo its plugin actually lives
+ * in, so display copy, readme and stars are read from that repo rather than
+ * from here.
+ */
+const MARKETPLACE_REPO = "flykit-cc/plugins";
+const MARKETPLACE_URL = `https://raw.githubusercontent.com/${MARKETPLACE_REPO}/main/.claude-plugin/marketplace.json`;
+const raw = (repo: string, path: string) =>
+  `https://raw.githubusercontent.com/${repo}/main/${path}`;
 
 export type Announcement = {
   text: string;
@@ -81,9 +89,9 @@ export function fetchAnnouncement(): Announcement | null {
   return { text: data.text, href: data.href, label: data.label, id: data.id };
 }
 
-async function fetchStars(): Promise<number> {
+export async function fetchStars(repo: string): Promise<number> {
   try {
-    const res = await fetch(GITHUB_API, {
+    const res = await fetch(`https://api.github.com/repos/${repo}`, {
       next: { revalidate: 3600 },
       headers: { Accept: "application/vnd.github+json" },
     });
@@ -95,9 +103,16 @@ async function fetchStars(): Promise<number> {
   }
 }
 
-async function fetchWebJson(pluginName: string): Promise<WebJson | null> {
+/** A manifest entry names its repo; a legacy relative source falls back to the manifest repo. */
+function pluginRepo(mp: RawMarketplacePlugin): string {
+  const src = mp.source;
+  if (src !== undefined && typeof src === "object" && typeof src.repo === "string") return src.repo;
+  return MARKETPLACE_REPO;
+}
+
+async function fetchWebJson(repo: string): Promise<WebJson | null> {
   try {
-    const res = await fetch(`${BASE_RAW}/plugins/${pluginName}/web.json`, {
+    const res = await fetch(raw(repo, "web.json"), {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return null;
@@ -107,9 +122,9 @@ async function fetchWebJson(pluginName: string): Promise<WebJson | null> {
   }
 }
 
-async function fetchReadme(pluginName: string): Promise<string | null> {
+async function fetchReadme(repo: string): Promise<string | null> {
   try {
-    const res = await fetch(`${BASE_RAW}/plugins/${pluginName}/README.md`, {
+    const res = await fetch(raw(repo, "README.md"), {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return null;
@@ -146,13 +161,13 @@ export async function getMarketplace(): Promise<Marketplace> {
     const remote = (await res.json()) as RawMarketplace;
     if (!remote?.plugins?.length) return normalizeFallback();
 
-    const stars = await fetchStars();
-
     const plugins = await Promise.all(
       remote.plugins.map(async (mp) => {
-        const [web, readme] = await Promise.all([
-          fetchWebJson(mp.name),
-          fetchReadme(mp.name),
+        const repo = pluginRepo(mp);
+        const [web, readme, stars] = await Promise.all([
+          fetchWebJson(repo),
+          fetchReadme(repo),
+          fetchStars(repo),
         ]);
         if (!web) {
           const fb = fallbackPluginByName(mp.name);
@@ -172,8 +187,9 @@ export async function getMarketplace(): Promise<Marketplace> {
           useCases: web.useCases,
           skills: web.skills,
           sources: web.sources,
-          repo: `https://github.com/${REPO}`,
+          repo: `https://github.com/${repo}`,
           license: mp.license ?? "MIT",
+          version: mp.version,
           stars,
           readme,
         };
@@ -208,6 +224,8 @@ export type ChangelogEntry = {
   message: string;
   author: { login: string; avatarUrl: string };
   url: string;
+  /** Which repo the commit landed in; the feed spans all of them. */
+  repo: string;
 };
 
 type RawCommit = {
@@ -221,10 +239,10 @@ type RawCommit = {
   author: { login?: string; avatar_url?: string } | null;
 };
 
-export async function fetchChangelog(): Promise<ChangelogEntry[]> {
+async function fetchCommits(repo: string): Promise<ChangelogEntry[]> {
   try {
     const res = await fetch(
-      `${GITHUB_API}/commits?path=plugins&per_page=30`,
+      `https://api.github.com/repos/${repo}/commits?per_page=15`,
       {
         next: { revalidate: 3600 },
         headers: { Accept: "application/vnd.github+json" },
@@ -245,9 +263,27 @@ export async function fetchChangelog(): Promise<ChangelogEntry[]> {
           avatarUrl: c.author?.avatar_url ?? "",
         },
         url: c.html_url,
+        repo: repo.split("/")[1] ?? repo,
       };
     });
   } catch {
     return [];
   }
+}
+
+/**
+ * One feed across every flykit repo. Each product ships from its own repo now,
+ * so a single-repo commit list would show almost nothing.
+ */
+export async function fetchChangelog(): Promise<ChangelogEntry[]> {
+  const marketplace = await getMarketplace();
+  const repos = [
+    ...marketplace.plugins.map((p) => p.repo.replace("https://github.com/", "")),
+    ...getTools().map((t) => t.repo.replace("https://github.com/", "")),
+  ];
+  const lists = await Promise.all([...new Set(repos)].map(fetchCommits));
+  return lists
+    .flat()
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .slice(0, 30);
 }

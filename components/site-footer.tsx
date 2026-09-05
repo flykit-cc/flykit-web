@@ -25,7 +25,7 @@ export function SiteFooter() {
               { label: "Claude Code plugins", href: "/#plugins" },
               { label: "Flow", href: "/plugins/flow" },
               { label: "Steuer", href: "/plugins/steuer" },
-              { label: "Suggest a tool", href: "https://github.com/flykit-cc/flykit/issues/new" },
+              { label: "Suggest a tool", href: "https://github.com/flykit-cc/flykit-web/issues/new" },
             ]}
           />
           <FooterCol
@@ -34,14 +34,14 @@ export function SiteFooter() {
               { label: "Getting started", href: "/docs" },
               { label: "Changelog", href: "/changelog" },
               { label: "DeepSeek Harness", href: "https://github.com/deepseek-ai/deepseek-harness" },
-              { label: "Plugin spec", href: "https://github.com/flykit-cc/flykit" },
+              { label: "Plugin spec", href: "https://github.com/flykit-cc" },
             ]}
           />
           <FooterCol
             title="About"
             links={[
-              { label: "GitHub", href: "https://github.com/flykit-cc/flykit" },
-              { label: "License (MIT)", href: "https://github.com/flykit-cc/flykit/blob/main/LICENSE" },
+              { label: "GitHub", href: "https://github.com/flykit-cc" },
+              { label: "License (MIT)", href: "https://github.com/flykit-cc/plugins/blob/main/LICENSE" },
               { label: "Contact", href: "mailto:hello@flykit.cc" },
             ]}
           />

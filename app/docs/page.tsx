@@ -127,7 +127,7 @@ export default function DocsPage() {
             n={5}
             title="Add the marketplace"
             body="Register flykit as a plugin marketplace. You only do this once."
-            code="claude /plugin marketplace add flykit-cc/flykit"
+            code="claude /plugin marketplace add flykit-cc/plugins"
           />
 
           <Step
@@ -216,7 +216,7 @@ export default function DocsPage() {
             </Link>
             , or open an{" "}
             <Link
-              href="https://github.com/flykit-cc/flykit/issues/new"
+              href="https://github.com/flykit-cc/flykit-web/issues/new"
               target="_blank"
               rel="noreferrer"
               className="text-foreground underline underline-offset-4"

@@ -50,7 +50,7 @@ export default function PrivacyPage() {
             no user content. Plugin and tool metadata is read at build time, and
             re-fetched hourly, from the public{" "}
             <Link
-              href="https://github.com/flykit-cc/flykit"
+              href="https://github.com/flykit-cc"
               target="_blank"
               rel="noreferrer"
               className="text-foreground underline underline-offset-4"
@@ -120,7 +120,7 @@ export default function PrivacyPage() {
           <p className="font-sans text-base text-muted-foreground">
             Open an{" "}
             <Link
-              href="https://github.com/flykit-cc/flykit/issues/new"
+              href="https://github.com/flykit-cc/flykit-web/issues/new"
               target="_blank"
               rel="noreferrer"
               className="text-foreground underline underline-offset-4"

@@ -75,7 +75,7 @@ const LANES = [
       {
         title: "Add the marketplace",
         body: "Register flykit in Claude Code. One command, one time.",
-        code: "claude /plugin marketplace add flykit-cc/flykit",
+        code: "claude /plugin marketplace add flykit-cc/plugins",
       },
       {
         title: "Install a plugin",
@@ -260,7 +260,7 @@ export default async function HomePage() {
               <span className="text-muted-foreground">catalog</span>
             </h2>
             <Link
-              href="https://github.com/flykit-cc/flykit/issues/new"
+              href="https://github.com/flykit-cc/flykit-web/issues/new"
               className="hidden items-center gap-1 font-mono text-sm text-muted-foreground hover:text-foreground md:inline-flex"
             >
               Suggest one <ArrowRight className="h-3.5 w-3.5" />
@@ -333,7 +333,7 @@ export default async function HomePage() {
                     it together.
                   </CardDescription>
                   <Link
-                    href="https://github.com/flykit-cc/flykit/issues/new"
+                    href="https://github.com/flykit-cc/flykit-web/issues/new"
                     className="inline-flex items-center gap-1 font-mono text-sm text-foreground hover:underline"
                   >
                     Suggest a plugin <ArrowRight className="h-3.5 w-3.5" />
@@ -409,14 +409,14 @@ export default async function HomePage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
-              <Link href="https://github.com/flykit-cc/flykit" target="_blank" rel="noreferrer">
+              <Link href="https://github.com/flykit-cc" target="_blank" rel="noreferrer">
                 <Github className="h-4 w-4" />
                 View on GitHub
               </Link>
             </Button>
             <Button asChild variant="outline">
               <Link
-                href="https://github.com/flykit-cc/flykit/blob/main/CONTRIBUTING.md"
+                href="https://github.com/flykit-cc/plugins/blob/main/CONTRIBUTING.md"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -465,7 +465,7 @@ export default async function HomePage() {
                 </code>
                 . For a Claude Code plugin, register the marketplace once with{" "}
                 <code className="font-mono text-foreground">
-                  claude /plugin marketplace add flykit-cc/flykit
+                  claude /plugin marketplace add flykit-cc/plugins
                 </code>{" "}
                 and then{" "}
                 <code className="font-mono text-foreground">

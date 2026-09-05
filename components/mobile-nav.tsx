@@ -14,7 +14,7 @@ const LINKS: NavLink[] = [
   { href: "/#plugins", label: "Plugins" },
   { href: "/#tools", label: "Tools" },
   { href: "/docs", label: "Docs" },
-  { href: "https://github.com/flykit-cc/flykit", label: "GitHub", external: true },
+  { href: "https://github.com/flykit-cc", label: "GitHub", external: true },
 ];
 
 export function MobileNav() {

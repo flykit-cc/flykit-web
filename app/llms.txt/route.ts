@@ -34,7 +34,7 @@ export async function GET() {
   lines.push(
     "Everything is MIT-licensed, runs on your own machine, and lives at",
   );
-  lines.push("https://github.com/flykit-cc/flykit.");
+  lines.push("https://github.com/flykit-cc.");
   lines.push("");
   lines.push("## Getting started");
   lines.push("");
@@ -62,7 +62,7 @@ export async function GET() {
   lines.push(`- [Changelog](${BASE_URL}/changelog): recent releases across the marketplace.`);
   lines.push(`- [Privacy](${BASE_URL}/privacy)`);
   lines.push(`- [Terms](${BASE_URL}/terms)`);
-  lines.push(`- [Source](https://github.com/flykit-cc/flykit): the registry repo.`);
+  lines.push(`- [Source](https://github.com/flykit-cc): the registry repo.`);
   lines.push("");
 
   return new Response(lines.join("\n"), {

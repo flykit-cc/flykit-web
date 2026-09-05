@@ -32,7 +32,7 @@ Copies mcpmarket.com closely. Tokens in `app/globals.css`:
 
 ## Companion repo — where plugin data comes from
 
-Plugin metadata is **not stored here**. It lives in **`github.com/flykit-cc/flykit`** — the marketplace repo. Locally, most contributors keep it as a sibling folder.
+The tool catalog lives here in `content/`. Claude Code plugin metadata lives in **`github.com/flykit-cc/plugins`** (the manifest) and in each plugin's own repo (`web.json`, `README.md`).
 
 Flow:
 1. `lib/plugins.ts` fetches `.claude-plugin/marketplace.json` + each plugin's `web.json` sidecar from the flykit repo via GitHub raw URLs (ISR: 1 hr)

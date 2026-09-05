@@ -303,7 +303,7 @@ export default async function PluginPage({
                   className="inline-flex items-center gap-2 font-mono text-sm text-foreground hover:underline"
                 >
                   <Github className="h-4 w-4" />
-                  flykit-cc/flykit
+                  {plugin.repo.replace("https://github.com/", "")}
                 </Link>
                 <span className="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground">
                   <Star className="h-3.5 w-3.5" />

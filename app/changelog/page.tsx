@@ -54,17 +54,16 @@ export default async function ChangelogPage() {
             <span className="text-muted-foreground">log</span>
           </h1>
           <p className="font-sans text-lg text-muted-foreground">
-            Recent commits to{" "}
+            Recent commits across every{" "}
             <Link
-              href="https://github.com/flykit-cc/flykit"
+              href="https://github.com/flykit-cc"
               target="_blank"
               rel="noreferrer"
               className="text-foreground underline underline-offset-4"
             >
-              flykit-cc/flykit
+              flykit
             </Link>{" "}
-            touching the <code className="font-mono text-sm">plugins/</code>{" "}
-            directory. Updated hourly.
+            repo — the cockpit, the plugins and the tools. Updated hourly.
           </p>
         </header>
 
@@ -73,7 +72,7 @@ export default async function ChangelogPage() {
             <p className="font-sans text-sm text-muted-foreground">
               Couldn&apos;t load the commit feed right now. Check{" "}
               <Link
-                href="https://github.com/flykit-cc/flykit/commits/main"
+                href="https://github.com/flykit-cc"
                 target="_blank"
                 rel="noreferrer"
                 className="text-foreground underline underline-offset-4"
@@ -115,6 +114,10 @@ export default async function ChangelogPage() {
                           {e.message}
                         </Link>
                         <div className="mt-1 flex items-center gap-2 font-mono text-xs text-muted-foreground">
+                          {/* The feed spans repos now, so each line has to say which one. */}
+                          <span className="rounded-full border border-border px-2 py-0.5 text-foreground">
+                            {e.repo}
+                          </span>
                           <span>{e.author.login}</span>
                           <span>·</span>
                           <Link

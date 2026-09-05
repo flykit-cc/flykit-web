@@ -22,20 +22,26 @@
 
 ---
 
-Companion repo to [**`flykit-cc/flykit`**](https://github.com/flykit-cc/flykit), the open-source registry of tools and plugins for AI coding agents — Claude Code and DeepSeek Harness.
+The site for [flykit](https://flykit.cc) — a cockpit for agentic development, and the
+registry that fills it. This repo is also the hub: it holds the tool catalog and pulls
+the rest from each product's own repo.
+
+## Where the data lives
+
+| Data | Where | Why |
+|---|---|---|
+| Tool catalog, screenshots, announcement | here, in `content/` and `public/screenshots/` | this site is the only reader |
+| Claude Code plugin list | [flykit-cc/plugins](https://github.com/flykit-cc/plugins) | Claude Code reads that manifest too |
+| A plugin's or tool's readme, stars, latest commits | its own repo, fetched hourly | facts that change when you ship |
+
+The rule: copy you write by hand lives here. Facts that change when you ship live with
+the code.
 
 ## Thinking of contributing?
 
-**Catalog data lives in the [flykit](https://github.com/flykit-cc/flykit) repo, not here.** If you want to add or edit a plugin or a tool — its tagline, features, skills, or tags — that's a PR against `flykit-cc/flykit` (`marketplace.json` for Claude Code plugins, `tools.json` for tools and dsh plugins). This site re-fetches that data on every build and via 1-hour ISR, so upstream changes show up here automatically.
-
-What *does* belong in this repo:
-
-- Design, copy, typography, layout
-- New pages (e.g. `/blog`, `/showcase`, `/changelog`)
-- Bug fixes, accessibility, perf tuning
-- SEO metadata, OG image updates
-
-PRs welcome for any of the above.
+- **Adding or editing a tool** — PR here, against `content/tools.json` and `content/tools/<slug>.json`.
+- **Adding a Claude Code plugin** — PR against [flykit-cc/plugins](https://github.com/flykit-cc/plugins); see its CONTRIBUTING.
+- **Design, copy, pages, accessibility, SEO** — PR here.
 
 ## Stack
 
@@ -51,7 +57,10 @@ pnpm install
 pnpm dev        # http://localhost:3000
 ```
 
-The site builds against local fallbacks (`lib/plugins-fallback.json`, `lib/tools-fallback.json`) so it works offline. At runtime it fetches `marketplace.json` + each plugin's `web.json`, and `tools.json` + each tool's `web.json`, from `flykit-cc/flykit` via GitHub raw URLs, with 1-hour ISR. A tool only appears once its entry is pushed to `tools.json` — the remote manifest replaces the fallback wholesale.
+The tool catalog is local, so it needs no network. The plugin half fetches
+`marketplace.json` from `flykit-cc/plugins`, then each plugin's `web.json`, `README.md`
+and star count from the repo that manifest names, with 1-hour ISR and
+`lib/plugins-fallback.json` as the offline fallback.
 
 ## Build
 
