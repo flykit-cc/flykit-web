@@ -95,7 +95,7 @@ export default async function HomePage() {
   const marketplace = await getMarketplace();
   const plugins = marketplace.plugins;
   // The cockpit is the thing the page is about, so it leads its grid.
-  const tools = (await getTools()).sort(
+  const tools = getTools().sort(
     (a, b) => Number(b.slug === "dsh-flykit") - Number(a.slug === "dsh-flykit"),
   );
 

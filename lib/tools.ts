@@ -1,7 +1,8 @@
-import fallback from "./tools-fallback.json";
-
-const REPO = "flykit-cc/flykit";
-const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
+import manifest from "@/content/tools.json";
+import dshClaudeLive from "@/content/tools/dsh-claude-live.json";
+import dshFlykit from "@/content/tools/dsh-flykit.json";
+import ghostcode from "@/content/tools/ghostcode.json";
+import uisper from "@/content/tools/uisper.json";
 
 export type Ecosystem = "claude-code" | "dsh" | "macos";
 
@@ -47,38 +48,24 @@ export type ToolWeb = {
 
 export type FullTool = Tool & { web: ToolWeb };
 
-type FallbackData = {
-  tools: Tool[];
-  webByTool: Record<string, ToolWeb>;
+/**
+ * The catalog is local content, not a cross-repo fetch: this site is its only
+ * reader, so the data lives beside the pages that render it and ships in the
+ * build. Screenshots are served from `public/screenshots/<slug>/`.
+ */
+const WEB_BY_SLUG: Record<string, ToolWeb> = {
+  "dsh-claude-live": dshClaudeLive as ToolWeb,
+  "dsh-flykit": dshFlykit as ToolWeb,
+  ghostcode: ghostcode as ToolWeb,
+  uisper: uisper as ToolWeb,
 };
 
-async function fetchJSON<T>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) return null;
-    return (await res.json()) as T;
-  } catch {
-    return null;
-  }
+export function getTools(): FullTool[] {
+  return (manifest.tools as Tool[])
+    .map((t) => ({ ...t, web: WEB_BY_SLUG[t.slug] }))
+    .filter((t): t is FullTool => Boolean(t.web));
 }
 
-export async function getTools(): Promise<FullTool[]> {
-  const fb = fallback as FallbackData;
-  const manifest = await fetchJSON<{ tools: Tool[] }>(`${BASE_RAW}/tools.json`);
-  const tools = manifest?.tools ?? fb.tools;
-
-  const full = await Promise.all(
-    tools.map(async (t) => {
-      const webPath = t.web.replace(/^\.\//, "");
-      const web = await fetchJSON<ToolWeb>(`${BASE_RAW}/${webPath}`);
-      return { ...t, web: web ?? fb.webByTool[t.slug] };
-    })
-  );
-
-  return full.filter((t): t is FullTool => Boolean(t.web));
-}
-
-export async function getTool(slug: string): Promise<FullTool | null> {
-  const all = await getTools();
-  return all.find((t) => t.slug === slug) ?? null;
+export function getTool(slug: string): FullTool | null {
+  return getTools().find((t) => t.slug === slug) ?? null;
 }

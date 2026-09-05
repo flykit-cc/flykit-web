@@ -9,10 +9,9 @@ import { CodeBlock } from "@/components/code-block";
 import { getTool, getTools, isDownload } from "@/lib/tools";
 
 const BASE_URL = "https://flykit.cc";
-const RAW_BASE = "https://raw.githubusercontent.com/flykit-cc/flykit/main";
 
 export async function generateStaticParams() {
-  const tools = await getTools();
+  const tools = getTools();
   return tools.map((t) => ({ slug: t.slug }));
 }
 
@@ -22,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tool = await getTool(slug);
+  const tool = getTool(slug);
   if (!tool) return { title: "Tool not found — flykit" };
   const url = `${BASE_URL}/tools/${tool.slug}`;
   const title = `${tool.web.displayName} — flykit`;
@@ -50,18 +49,12 @@ export default async function ToolPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tool = await getTool(slug);
+  const tool = getTool(slug);
   if (!tool) notFound();
 
   const url = `${BASE_URL}/tools/${tool.slug}`;
-  // A screenshot is either a path inside the registry repo ("./shots/a.png") or
-  // one this site serves itself ("/screenshots/…"), used before a registry push.
-  const shots = (tool.web.screenshots ?? []).map((s) => ({
-    ...s,
-    src: /^(https?:|\/)/.test(s.file)
-      ? s.file
-      : `${RAW_BASE}/tools/${slug}/${s.file.replace(/^\.\//, "")}`,
-  }));
+  // Screenshots are served from this site's own public/screenshots/<slug>/.
+  const shots = (tool.web.screenshots ?? []).map((s) => ({ ...s, src: s.file }));
   const [hero, ...rest] = shots;
   const download = isDownload(tool.web.install);
   const jsonLd = {

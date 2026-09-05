@@ -36,7 +36,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const announcement = await fetchAnnouncement();
+  const announcement = fetchAnnouncement();
   return (
     <html
       lang="en"

@@ -8,7 +8,7 @@ const BASE_URL = "https://flykit.cc";
 export async function GET() {
   const m = await getMarketplace();
   const plugins = await Promise.all(m.plugins.map((p) => getPlugin(p.slug)));
-  const tools = await getTools();
+  const tools = getTools();
 
   const lines: string[] = [];
   lines.push("# flykit");

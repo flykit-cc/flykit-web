@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const toolRoutes: MetadataRoute.Sitemap = (await getTools()).map((t) => ({
+  const toolRoutes: MetadataRoute.Sitemap = getTools().map((t) => ({
     url: `${BASE_URL}/tools/${t.slug}`,
     lastModified,
     changeFrequency: "weekly",
