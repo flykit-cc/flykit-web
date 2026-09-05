@@ -194,52 +194,88 @@ export default async function HomePage() {
       <section className="border-b border-border">
         <div className="container mx-auto px-6 py-20">
           <h2
-            className="mb-12 font-mono"
+            className="mb-4 font-mono"
             style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 500, letterSpacing: "-1px" }}
           >
             <span className="text-foreground">How it </span>
             <span className="text-muted-foreground">works</span>
           </h2>
+          <p className="mb-12 max-w-2xl font-sans text-base text-muted-foreground">
+            Two ecosystems, one registry. Pick the lane your agent runs in.
+          </p>
 
-          <ol className="space-y-10">
+          <div className="grid gap-14 md:grid-cols-2 md:gap-10">
             {[
               {
-                title: "Add the marketplace",
-                body: "Register the flykit marketplace in Claude Code. One command, one time.",
-                code: "claude /plugin marketplace add flykit-cc/flykit",
+                lane: "Claude Code",
+                steps: [
+                  {
+                    title: "Add the marketplace",
+                    body: "Register the flykit marketplace in Claude Code. One command, one time.",
+                    code: "claude /plugin marketplace add flykit-cc/flykit",
+                  },
+                  {
+                    title: "Install a plugin",
+                    body: "Pick a plugin from the marketplace and install it scoped to flykit.",
+                    code: "/plugin install steuer@flykit",
+                  },
+                  {
+                    title: "Run the skill",
+                    body: "Invoke any of the plugin's skills inside Claude Code. They run locally with your data.",
+                    code: "/skill calculate-euer",
+                  },
+                ],
               },
               {
-                title: "Install a plugin",
-                body: "Pick a plugin from the marketplace and install it scoped to flykit.",
-                code: "/plugin install steuer@flykit",
+                lane: "DeepSeek Harness",
+                steps: [
+                  {
+                    title: "Install the harness",
+                    body: "The dsh CLI carries the agent, the web UI, and the plugin loader.",
+                    code: "npm install -g @deepseek-ai/dsh",
+                  },
+                  {
+                    title: "Add a plugin",
+                    body: "A dsh plugin extends the harness itself — new panels, new tools, new routes.",
+                    code: "dsh plugin --profile web add dsh-flykit",
+                  },
+                  {
+                    title: "Open the cockpit",
+                    body: "Start the web UI. The plugin is already loaded, no restart dance.",
+                    code: "dsh web",
+                  },
+                ],
               },
-              {
-                title: "Run the skill",
-                body: "Invoke any of the plugin's skills inside Claude Code. They run locally with your data.",
-                code: "/skill calculate-euer",
-              },
-            ].map((s, i) => (
-              <li
-                key={s.title}
-                className="grid gap-4 border-l border-border pl-6 md:grid-cols-[120px_1fr] md:gap-8"
-              >
-                <div className="font-mono text-5xl font-medium leading-none text-muted-foreground/40">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div className="space-y-3">
-                  <h3 className="font-mono text-xl font-medium tracking-tight">
-                    {s.title}
-                  </h3>
-                  <p className="font-sans text-base text-muted-foreground max-w-2xl">
-                    {s.body}
-                  </p>
-                  <div className="max-w-xl">
-                    <CodeBlock code={s.code} />
-                  </div>
-                </div>
-              </li>
+            ].map((group) => (
+              <div key={group.lane} className="space-y-8">
+                <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  <span aria-hidden style={{ color: "var(--terminal-green)" }}>
+                    {">"}
+                  </span>
+                  <span>{group.lane}</span>
+                </p>
+
+                <ol className="space-y-8">
+                  {group.steps.map((s, i) => (
+                    <li key={s.title} className="space-y-3 border-l border-border pl-6">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-mono text-3xl font-medium leading-none text-muted-foreground/40">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h3 className="font-mono text-lg font-medium tracking-tight">
+                          {s.title}
+                        </h3>
+                      </div>
+                      <p className="font-sans text-sm text-muted-foreground">
+                        {s.body}
+                      </p>
+                      <CodeBlock code={s.code} />
+                    </li>
+                  ))}
+                </ol>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
