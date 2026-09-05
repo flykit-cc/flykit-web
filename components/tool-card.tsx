@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { Download, Github } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { CodeBlock } from "@/components/code-block";
-import { ECOSYSTEM_LABEL, type FullTool } from "@/lib/tools";
+import { ECOSYSTEM_LABEL, isDownload, type FullTool } from "@/lib/tools";
 
 export function ToolCard({ tool }: { tool: FullTool }) {
   return (
@@ -39,7 +39,19 @@ export function ToolCard({ tool }: { tool: FullTool }) {
         </div>
 
         <div className="mt-auto space-y-3 pt-2">
-          <CodeBlock code={tool.web.install} compact />
+          {isDownload(tool.web.install) ? (
+            <Link
+              href={tool.web.install}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-2 font-mono text-xs font-medium text-background transition-colors hover:bg-foreground/90"
+            >
+              <Download className="h-3.5 w-3.5" />
+              Download
+            </Link>
+          ) : (
+            <CodeBlock code={tool.web.install} compact />
+          )}
           <Link
             href={tool.web.externalRepo}
             target="_blank"

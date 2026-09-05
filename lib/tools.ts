@@ -3,12 +3,16 @@ import fallback from "./tools-fallback.json";
 const REPO = "flykit-cc/flykit";
 const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
 
-export type Ecosystem = "claude-code" | "dsh";
+export type Ecosystem = "claude-code" | "dsh" | "macos";
 
 export const ECOSYSTEM_LABEL: Record<Ecosystem, string> = {
   "claude-code": "Claude Code",
   dsh: "DeepSeek Harness",
+  macos: "macOS app",
 };
+
+/** An install that is a URL is a download, not a command to paste. */
+export const isDownload = (install: string) => /^https?:\/\//.test(install);
 
 export type Tool = {
   name: string;

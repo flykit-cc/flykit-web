@@ -178,8 +178,8 @@ export default async function HomePage() {
             </h2>
           </div>
           <p className="mb-10 max-w-2xl font-sans text-base text-muted-foreground">
-            Standalone tools and DeepSeek Harness plugins. Each card shows the
-            ecosystem it runs in and the command that installs it.
+            Standalone tools, DeepSeek Harness plugins, and native apps. Each
+            card shows the ecosystem it runs in and how to get it.
           </p>
 
           <div className="grid gap-4 md:grid-cols-3">

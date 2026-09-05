@@ -1,5 +1,5 @@
 import { getMarketplace, getPlugin } from "@/lib/plugins";
-import { ECOSYSTEM_LABEL, getTools } from "@/lib/tools";
+import { ECOSYSTEM_LABEL, getTools, isDownload } from "@/lib/tools";
 
 export const revalidate = 3600;
 
@@ -124,7 +124,12 @@ export async function GET() {
     if (t.web.categories?.length) {
       lines.push(`Categories: ${t.web.categories.join(", ")}`);
     }
-    lines.push(`Install: \`${t.web.install}\``);
+    lines.push(
+      isDownload(t.web.install)
+        ? `Download: ${t.web.install}`
+        : `Install: \`${t.web.install}\``,
+    );
+    if (t.web.installNote) lines.push(`Install notes: ${t.web.installNote.replace(/\n/g, " ")}`);
     lines.push("");
     lines.push(`> ${t.web.tagline}`);
     lines.push("");

@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, Github } from "lucide-react";
+import { ChevronRight, Download, Github } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CodeBlock } from "@/components/code-block";
-import { getTool, getTools } from "@/lib/tools";
+import { getTool, getTools, isDownload } from "@/lib/tools";
 
 const BASE_URL = "https://flykit.cc";
 const RAW_BASE = "https://raw.githubusercontent.com/flykit-cc/flykit/main";
@@ -62,6 +63,7 @@ export default async function ToolPage({
       : `${RAW_BASE}/tools/${slug}/${s.file.replace(/^\.\//, "")}`,
   }));
   const [hero, ...rest] = shots;
+  const download = isDownload(tool.web.install);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -69,7 +71,7 @@ export default async function ToolPage({
     description: tool.web.description || tool.web.tagline,
     url,
     applicationCategory: "DeveloperApplication",
-    operatingSystem: "Cross-platform",
+    operatingSystem: tool.ecosystem === "macos" ? "macOS" : "Cross-platform",
     author: { "@type": "Person", name: tool.web.author, url: tool.web.authorUrl },
     license: tool.license
       ? `https://spdx.org/licenses/${tool.license}.html`
@@ -225,9 +227,9 @@ export default async function ToolPage({
               Get started
             </p>
             <p className="mt-2 font-mono text-base font-medium">
-              Install {tool.web.displayName}
+              {download ? "Download" : "Install"} {tool.web.displayName}
             </p>
-            <p className="mt-2 font-sans text-sm text-background/70">
+            <p className="mt-2 whitespace-pre-line font-sans text-sm text-background/70">
               {tool.web.installNote ??
                 (tool.ecosystem === "dsh"
                   ? "A DeepSeek Harness plugin — install it with the dsh CLI."
@@ -235,7 +237,16 @@ export default async function ToolPage({
             </p>
           </div>
 
-          <CodeBlock code={tool.web.install} variant="dark" compact />
+          {download ? (
+            <Button asChild className="w-full">
+              <Link href={tool.web.install} target="_blank" rel="noreferrer">
+                <Download className="h-4 w-4" />
+                Download {tool.version}
+              </Link>
+            </Button>
+          ) : (
+            <CodeBlock code={tool.web.install} variant="dark" compact />
+          )}
 
           <Card>
             <CardContent className="p-5">
