@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { AgentRow } from "@/components/agent-row";
+import { Clip } from "@/components/clip";
 import { CodeBlock } from "@/components/code-block";
 import { Shot } from "@/components/shot";
 import { ToolCard } from "@/components/tool-card";
@@ -159,12 +160,10 @@ export default async function HomePage() {
           </div>
 
           <div className="mx-auto mt-14 max-w-5xl">
-            <Shot
-              src="/screenshots/dsh-flykit/hero.png"
-              alt="The flykit panel open beside a dsh web session: file tree, an open TypeScript file, and the status line under the composer"
-              width={1440}
-              height={900}
-              priority
+            <Clip
+              src="/media/cockpit.mp4"
+              poster="/media/cockpit-poster.png"
+              alt="The flykit panel: a shell running git status, then the file tree and an open TypeScript file, then the model picker searching 435 models"
             />
           </div>
         </div>
