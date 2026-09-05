@@ -25,10 +25,11 @@ export type ToolWeb = {
   tagline: string;
   description: string;
   install: string;
+  installNote?: string;
   externalRepo: string;
   features: string[];
   useCases: string[];
-  screenshots: { label: string; file: string }[];
+  screenshots?: { label: string; file: string }[];
 };
 
 export type FullTool = Tool & { web: ToolWeb };

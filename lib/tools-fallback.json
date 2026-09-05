@@ -8,10 +8,32 @@
       "npm": "@flykit/ghostcode",
       "install": "git clone https://github.com/flykit-cc/ghostcode && npm install -g ./ghostcode",
       "category": "workflow",
-      "keywords": ["ghostty", "launcher", "picker"],
+      "keywords": [
+        "ghostty",
+        "launcher",
+        "picker"
+      ],
       "license": "MIT",
       "version": "0.2.0",
       "web": "./tools/ghostcode/web.json"
+    },
+    {
+      "name": "dsh-flykit",
+      "slug": "dsh-flykit",
+      "description": "flykit for DeepSeek Harness — explorer with live file watch, agent terminals (Claude Code, Pi, Codex), DSH agent tools, searchable model picker, Claude usage bars and a status line.",
+      "repo": "https://github.com/flykit-cc/dsh-flykit",
+      "npm": "dsh-flykit",
+      "install": "dsh plugin --profile web add github:flykit-cc/dsh-flykit",
+      "category": "agents",
+      "keywords": [
+        "deepseek-harness",
+        "cordis",
+        "claude-code",
+        "terminal"
+      ],
+      "license": "MIT",
+      "version": "0.1.0",
+      "web": "./tools/dsh-flykit/web.json"
     }
   ],
   "webByTool": {
@@ -19,7 +41,10 @@
       "displayName": "GhostCode",
       "author": "kaiomp",
       "authorUrl": "https://github.com/kaiomp",
-      "categories": ["Workflow", "Ghostty"],
+      "categories": [
+        "Workflow",
+        "Ghostty"
+      ],
       "tagline": "Swap models, tint your projects, and spin up pre-configured Claude Code terminals.",
       "description": "GhostCode is a Ghostty launcher for Claude Code.",
       "install": "git clone https://github.com/flykit-cc/ghostcode && npm install -g ./ghostcode",
@@ -27,6 +52,48 @@
       "features": [],
       "useCases": [],
       "screenshots": []
+    },
+    "dsh-flykit": {
+      "displayName": "dsh-flykit",
+      "author": "kaiomp",
+      "authorUrl": "https://github.com/kaiomp",
+      "categories": [
+        "DeepSeek Harness",
+        "Agents",
+        "Claude Code"
+      ],
+      "tagline": "Fly your agents. Turn the dsh web GUI into an agent cockpit — explorer, agent terminals, model picker, usage bars, status line.",
+      "description": "A DeepSeek Harness plugin that turns the dsh web GUI into an agent cockpit: an Explorer panel with a file tree, an editor that saves to disk and live file watch; an Agents tab running real PTY terminals for Claude Code, Pi, Codex or a plain shell; flykit_agent_* tools so the DSH agent can drive those terminals itself; a searchable model picker over the live OpenRouter catalog; Claude subscription usage bars; and a Claude-Code-style status line under the composer.",
+      "install": "dsh plugin --profile web add github:flykit-cc/dsh-flykit",
+      "installNote": "npm publish is coming. For now install straight from GitHub, or clone the repo and run dsh plugin --profile web add . from the checkout.",
+      "externalRepo": "https://github.com/flykit-cc/dsh-flykit",
+      "features": [
+        "Explorer panel with a file tree, an editor that saves to disk, Markdown / HTML / SVG preview, and live file watch over SSE",
+        "Agents tab with real PTY terminals in the session workspace: Claude Code, Pi, Codex, or a plain shell",
+        "flykit_agent_* tools so the DSH agent can start, send to, read, wait on and stop those terminals",
+        "Searchable model picker over the live OpenRouter catalog, with favourites, recents and reasoning badges",
+        "Claude subscription usage bars — 5-hour, weekly and weekly top model — beside a Claude Code terminal",
+        "Status line under the composer: idle / thinking / running tool, turn timer, git branch and dirty count"
+      ],
+      "useCases": [
+        "Watching and steering several Claude Code runs from one DSH session",
+        "Editing files next to the conversation instead of switching to an editor",
+        "Harness users who want a cockpit — status, files, terminals — in the web GUI"
+      ],
+      "screenshots": [
+        {
+          "label": "The flykit panel open beside a dsh web session, with the status line under the composer",
+          "file": "/screenshots/dsh-flykit/hero.png"
+        },
+        {
+          "label": "Agents tab: a live Claude Code terminal with Claude subscription usage bars above it",
+          "file": "/screenshots/dsh-flykit/agents.png"
+        },
+        {
+          "label": "Model picker over 435 models, filtered with provider pills and reasoning badges",
+          "file": "/screenshots/dsh-flykit/model-picker.png"
+        }
+      ]
     }
   }
 }

@@ -53,6 +53,15 @@ export default async function ToolPage({
   if (!tool) notFound();
 
   const url = `${BASE_URL}/tools/${tool.slug}`;
+  // A screenshot is either a path inside the registry repo ("./shots/a.png") or
+  // one this site serves itself ("/screenshots/…"), used before a registry push.
+  const shots = (tool.web.screenshots ?? []).map((s) => ({
+    ...s,
+    src: /^(https?:|\/)/.test(s.file)
+      ? s.file
+      : `${RAW_BASE}/tools/${slug}/${s.file.replace(/^\.\//, "")}`,
+  }));
+  const [hero, ...rest] = shots;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -131,6 +140,13 @@ export default async function ToolPage({
             {tool.web.tagline}
           </p>
 
+          {hero && (
+            <figure className="mt-8 overflow-hidden rounded-md border border-border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={hero.src} alt={hero.label} className="w-full" />
+            </figure>
+          )}
+
           <section className="mt-10">
             <h2 className="font-mono text-xl font-medium tracking-tight">
               About
@@ -179,23 +195,19 @@ export default async function ToolPage({
             </section>
           )}
 
-          {tool.web.screenshots.length > 0 && (
+          {rest.length > 0 && (
             <section className="mt-10">
               <h2 className="font-mono text-xl font-medium tracking-tight">
                 Screenshots
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-4">
-                {tool.web.screenshots.map((s) => (
+                {rest.map((s) => (
                   <figure
                     key={s.file}
                     className="overflow-hidden rounded-md border border-border"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={`${RAW_BASE}/tools/${slug}/${s.file.replace(/^\.\//, "")}`}
-                      alt={s.label}
-                      className="w-full"
-                    />
+                    <img src={s.src} alt={s.label} className="w-full" />
                     <figcaption className="border-t border-border p-3 font-mono text-xs text-muted-foreground">
                       {s.label}
                     </figcaption>
@@ -216,7 +228,7 @@ export default async function ToolPage({
               Install {tool.web.displayName}
             </p>
             <p className="mt-2 font-sans text-sm text-background/70">
-              Not a plugin — install via npm.
+              {tool.web.installNote ?? "Not a plugin — install via npm."}
             </p>
           </div>
 
