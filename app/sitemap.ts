@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getMarketplace } from "@/lib/plugins";
+import { getTools } from "@/lib/tools";
 
 const BASE_URL = "https://flykit.cc";
 
@@ -21,5 +22,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...pluginRoutes];
+  const toolRoutes: MetadataRoute.Sitemap = (await getTools()).map((t) => ({
+    url: `${BASE_URL}/tools/${t.slug}`,
+    lastModified,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...pluginRoutes, ...toolRoutes];
 }

@@ -228,7 +228,10 @@ export default async function ToolPage({
               Install {tool.web.displayName}
             </p>
             <p className="mt-2 font-sans text-sm text-background/70">
-              {tool.web.installNote ?? "Not a plugin — install via npm."}
+              {tool.web.installNote ??
+                (tool.ecosystem === "dsh"
+                  ? "A DeepSeek Harness plugin — install it with the dsh CLI."
+                  : "Run the command below to install it.")}
             </p>
           </div>
 

@@ -51,11 +51,12 @@ export default function TermsPage() {
 
         <section className="space-y-4 border-l border-border pl-6">
           <h2 className="font-mono text-xl font-medium tracking-tight">
-            Plugins run on your machine
+            Everything runs on your machine
           </h2>
           <p className="font-sans text-base text-muted-foreground">
-            flykit plugins execute locally inside your own Claude Code install.
-            You are responsible for reviewing and running the code you install,
+            flykit plugins and tools execute locally — inside your own Claude
+            Code install, your own DeepSeek Harness, or your own shell. You are
+            responsible for reviewing and running the code you install,
             for any credentials or files those plugins touch, and for
             complying with the terms of any third-party services they connect
             to.

@@ -3,7 +3,8 @@ import { CodeBlock } from "@/components/code-block";
 
 export const metadata = {
   title: "Docs — flykit",
-  description: "Install Claude Code, add the flykit marketplace, and run your first plugin.",
+  description:
+    "Install a flykit plugin — the Claude Code marketplace path, and the DeepSeek Harness path.",
 };
 
 export default function DocsPage() {
@@ -22,7 +23,8 @@ export default function DocsPage() {
             <span className="text-muted-foreground">flykit</span>
           </h1>
           <p className="font-sans text-lg text-muted-foreground">
-            Five steps to get a flykit plugin running inside Claude Code.
+            Five steps to get a flykit plugin running inside Claude Code — plus
+            the short version for DeepSeek Harness.
           </p>
         </header>
 
@@ -31,7 +33,8 @@ export default function DocsPage() {
           title="Install Claude Code"
           body={
             <>
-              flykit plugins run inside Claude Code. Install it from{" "}
+              flykit&apos;s Claude Code plugins run inside Claude Code. Install
+              it from{" "}
               <Link
                 href="https://docs.claude.com/en/docs/claude-code"
                 target="_blank"
@@ -121,6 +124,40 @@ export default function DocsPage() {
           </div>
         </section>
 
+        <section className="space-y-6 border-t border-border pt-10">
+          <div className="space-y-2">
+            <h2 className="font-mono text-2xl font-medium tracking-tight">
+              DeepSeek Harness plugins
+            </h2>
+            <p className="font-sans text-base text-muted-foreground">
+              flykit also ships plugins for{" "}
+              <Link
+                href="https://github.com/deepseek-ai/dsh"
+                target="_blank"
+                rel="noreferrer"
+                className="text-foreground underline underline-offset-4"
+              >
+                DeepSeek Harness
+              </Link>
+              . They need no marketplace — install{" "}
+              <code className="font-mono text-foreground">@deepseek-ai/dsh</code>{" "}
+              first, then add the plugin to a profile and start the web GUI.
+            </p>
+          </div>
+          <div className="max-w-xl space-y-3">
+            <CodeBlock code="npm install -g @deepseek-ai/dsh" />
+            <CodeBlock code="dsh plugin --profile web add dsh-claude-live" />
+            <CodeBlock code="dsh web" />
+          </div>
+          <p className="font-sans text-sm text-muted-foreground">
+            Remove one with{" "}
+            <code className="font-mono text-foreground">
+              dsh plugin --profile web remove &lt;name&gt;
+            </code>
+            . Each tool page lists the exact command for that plugin.
+          </p>
+        </section>
+
         <section className="space-y-4 border-t border-border pt-10">
           <h2 className="font-mono text-2xl font-medium tracking-tight">
             What next?
@@ -128,7 +165,11 @@ export default function DocsPage() {
           <p className="font-sans text-base text-muted-foreground">
             Browse the{" "}
             <Link href="/#plugins" className="text-foreground underline underline-offset-4">
-              available plugins
+              Claude Code plugins
+            </Link>{" "}
+            and{" "}
+            <Link href="/#tools" className="text-foreground underline underline-offset-4">
+              agent tools
             </Link>
             , or open an{" "}
             <Link

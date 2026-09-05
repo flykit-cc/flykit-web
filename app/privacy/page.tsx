@@ -36,7 +36,8 @@ export default function PrivacyPage() {
             What this site does
           </h2>
           <p className="font-sans text-base text-muted-foreground">
-            flykit.cc is a catalog of open-source{" "}
+            flykit.cc is a catalog of open-source tools and plugins for AI
+            coding agents —{" "}
             <Link
               href="https://docs.claude.com/en/docs/claude-code"
               target="_blank"
@@ -45,8 +46,9 @@ export default function PrivacyPage() {
             >
               Claude Code
             </Link>{" "}
-            plugins. It has no accounts, no forms, no comments, and no user
-            content. Plugin metadata is read at build time from the public{" "}
+            and DeepSeek Harness. It has no accounts, no forms, no comments, and
+            no user content. Plugin and tool metadata is read at build time, and
+            re-fetched hourly, from the public{" "}
             <Link
               href="https://github.com/flykit-cc/flykit"
               target="_blank"
@@ -101,13 +103,13 @@ export default function PrivacyPage() {
 
         <section className="space-y-4 border-l border-border pl-6">
           <h2 className="font-mono text-xl font-medium tracking-tight">
-            Plugins run on your machine
+            Everything runs on your machine
           </h2>
           <p className="font-sans text-base text-muted-foreground">
-            flykit plugins are installed and executed locally inside your own
-            Claude Code install. Any data a plugin reads or writes stays on your
-            machine, subject to whatever that plugin does. This site has no
-            visibility into plugin usage.
+            flykit plugins and tools are installed and executed locally — inside
+            your own Claude Code install, your own DeepSeek Harness, or your own
+            shell. Any data they read or write stays on your machine, subject to
+            whatever that plugin does. This site has no visibility into usage.
           </p>
         </section>
 

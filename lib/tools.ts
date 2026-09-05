@@ -3,12 +3,21 @@ import fallback from "./tools-fallback.json";
 const REPO = "flykit-cc/flykit";
 const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/main`;
 
+export type Ecosystem = "claude-code" | "dsh";
+
+export const ECOSYSTEM_LABEL: Record<Ecosystem, string> = {
+  "claude-code": "Claude Code",
+  dsh: "DeepSeek Harness",
+};
+
 export type Tool = {
   name: string;
   slug: string;
   description: string;
   repo: string;
-  npm: string;
+  /** Absent for tools that install from GitHub rather than npm. */
+  npm?: string;
+  ecosystem?: Ecosystem;
   install: string;
   category: string;
   keywords: string[];

@@ -1,1 +1,1 @@
-flykit — Claude Code plugins for real-world workflows.
+flykit — open-source tools for AI coding agents: Claude Code and DeepSeek Harness.

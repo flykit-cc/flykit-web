@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "flykit — Claude Code plugins for real-world workflows",
+  title: "flykit — tools for AI coding agents",
   description:
-    "Open-source Claude Code plugins for real-world workflows. Install, run, contribute.",
+    "Open-source tools and plugins for AI coding agents — Claude Code and DeepSeek Harness. Install, run, contribute.",
   metadataBase: new URL("https://flykit.cc"),
   alternates: { canonical: "/" },
 };
@@ -28,7 +28,7 @@ const siteJsonLd = {
   name: "flykit",
   url: "https://flykit.cc",
   description:
-    "Open-source Claude Code plugins for real-world workflows. Install, run, contribute.",
+    "Open-source tools and plugins for AI coding agents — Claude Code and DeepSeek Harness. Install, run, contribute.",
 };
 
 export default async function RootLayout({

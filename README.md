@@ -22,11 +22,11 @@
 
 ---
 
-Companion repo to [**`flykit-cc/flykit`**](https://github.com/flykit-cc/flykit), the open-source Claude Code plugin marketplace.
+Companion repo to [**`flykit-cc/flykit`**](https://github.com/flykit-cc/flykit), the open-source registry of tools and plugins for AI coding agents — Claude Code and DeepSeek Harness.
 
 ## Thinking of contributing?
 
-**Plugin data lives in the [flykit](https://github.com/flykit-cc/flykit) repo, not here.** If you want to add or edit a plugin — its tagline, features, skills, or tags — that's a PR against `flykit-cc/flykit`. This site re-fetches plugin data on every build and via 1-hour ISR, so upstream changes show up here automatically.
+**Catalog data lives in the [flykit](https://github.com/flykit-cc/flykit) repo, not here.** If you want to add or edit a plugin or a tool — its tagline, features, skills, or tags — that's a PR against `flykit-cc/flykit` (`marketplace.json` for Claude Code plugins, `tools.json` for tools and dsh plugins). This site re-fetches that data on every build and via 1-hour ISR, so upstream changes show up here automatically.
 
 What *does* belong in this repo:
 
@@ -51,7 +51,7 @@ pnpm install
 pnpm dev        # http://localhost:3000
 ```
 
-The site builds against a local `lib/plugins-fallback.json` so it works offline. At runtime it fetches `marketplace.json` + each plugin's `web.json` from `flykit-cc/flykit` via GitHub raw URLs, with 1-hour ISR.
+The site builds against local fallbacks (`lib/plugins-fallback.json`, `lib/tools-fallback.json`) so it works offline. At runtime it fetches `marketplace.json` + each plugin's `web.json`, and `tools.json` + each tool's `web.json`, from `flykit-cc/flykit` via GitHub raw URLs, with 1-hour ISR. A tool only appears once its entry is pushed to `tools.json` — the remote manifest replaces the fallback wholesale.
 
 ## Build
 
@@ -68,7 +68,8 @@ app/
   globals.css             Design tokens + grid-paper utility
   page.tsx                Home
   docs/                   Getting-started
-  plugins/[slug]/         Plugin detail (static, generated from marketplace)
+  plugins/[slug]/         Plugin detail (static, generated from marketplace.json)
+  tools/[slug]/           Tool detail (static, generated from tools.json)
   privacy/, terms/        Legal
   opengraph-image.png     OG + Twitter card (social previews)
   icon.tsx, apple-icon.tsx Favicons
@@ -84,6 +85,8 @@ components/
 lib/
   plugins.ts              Marketplace fetcher (GitHub raw + fallback + stars)
   plugins-fallback.json
+  tools.ts                tools.json fetcher + ecosystem labels
+  tools-fallback.json
   utils.ts
 public/
   logo.svg                Wing mark, standalone

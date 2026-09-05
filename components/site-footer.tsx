@@ -12,17 +12,19 @@ export function SiteFooter() {
               flykit
             </div>
             <p className="font-sans text-sm text-muted-foreground max-w-xs">
-              Open-source Claude Code plugins for real-world workflows.
+              Open-source tools for AI coding agents — Claude Code and DeepSeek
+              Harness.
             </p>
           </div>
 
           <FooterCol
-            title="Plugins"
+            title="Catalog"
             links={[
-              { label: "All plugins", href: "/#plugins" },
+              { label: "Claude Code plugins", href: "/#plugins" },
+              { label: "Agent tools", href: "/#tools" },
               { label: "Flow", href: "/plugins/flow" },
               { label: "Steuer", href: "/plugins/steuer" },
-              { label: "Suggest a plugin", href: "https://github.com/flykit-cc/flykit/issues/new" },
+              { label: "Suggest a tool", href: "https://github.com/flykit-cc/flykit/issues/new" },
             ]}
           />
           <FooterCol

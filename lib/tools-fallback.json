@@ -15,21 +15,44 @@
       ],
       "license": "MIT",
       "version": "0.2.0",
-      "web": "./tools/ghostcode/web.json"
+      "web": "./tools/ghostcode/web.json",
+      "ecosystem": "claude-code"
     },
     {
-      "name": "dsh-flykit",
-      "slug": "dsh-flykit",
-      "description": "flykit for DeepSeek Harness — explorer with live file watch, agent terminals (Claude Code, Pi, Codex), DSH agent tools, searchable model picker, Claude usage bars and a status line.",
-      "repo": "https://github.com/flykit-cc/dsh-flykit",
-      "npm": "dsh-flykit",
-      "install": "dsh plugin --profile web add github:flykit-cc/dsh-flykit",
+      "name": "dsh-claude-live",
+      "slug": "dsh-claude-live",
+      "ecosystem": "dsh",
+      "description": "Run Claude Code as a subagent inside DeepSeek Harness, with its steps streaming live into the session view.",
+      "repo": "https://github.com/flykit-cc/dsh-claude-live",
+      "npm": "dsh-claude-live",
+      "install": "dsh plugin --profile web add dsh-claude-live",
       "category": "agents",
       "keywords": [
         "deepseek-harness",
         "cordis",
         "claude-code",
-        "terminal"
+        "subagent"
+      ],
+      "license": "MIT",
+      "version": "0.1.1",
+      "web": "./tools/dsh-claude-live/web.json"
+    },
+    {
+      "name": "dsh-flykit",
+      "slug": "dsh-flykit",
+      "ecosystem": "dsh",
+      "description": "flykit for DeepSeek Harness — explorer with live file watch, agent terminals (Claude Code, Pi, Codex), DSH agent tools, searchable model picker, Claude usage bars and a status line. Fly your agents.",
+      "repo": "https://github.com/flykit-cc/dsh-flykit",
+      "install": "dsh plugin --profile web add github:flykit-cc/dsh-flykit",
+      "category": "agents",
+      "keywords": [
+        "dsh-plugin",
+        "deepseek-harness",
+        "cordis",
+        "claude-code",
+        "terminal",
+        "file-editor",
+        "statusline"
       ],
       "license": "MIT",
       "version": "0.1.0",
@@ -43,15 +66,65 @@
       "authorUrl": "https://github.com/kaiomp",
       "categories": [
         "Workflow",
-        "Ghostty"
+        "Ghostty",
+        "Launcher"
       ],
-      "tagline": "Swap models, tint your projects, and spin up pre-configured Claude Code terminals.",
-      "description": "GhostCode is a Ghostty launcher for Claude Code.",
+      "tagline": "Swap models, tint your projects, and spin up pre-configured Claude Code terminals. Hit Enter twice. Work starts.",
+      "description": "GhostCode is a Ghostty launcher for Claude Code. Fuzzy project picker, per-project color tints, provider/model/mode memory, all local, no telemetry.",
       "install": "git clone https://github.com/flykit-cc/ghostcode && npm install -g ./ghostcode",
       "externalRepo": "https://github.com/flykit-cc/ghostcode",
-      "features": [],
-      "useCases": [],
-      "screenshots": []
+      "features": [
+        "Fuzzy project picker with starred favorites and auto-tracked recents",
+        "Per-project color tints that follow the project into CC's statusline",
+        "Model, effort, mode, and provider — saved per-project and globally",
+        "Providers beyond Claude: Anthropic API, GLM, Kimi, Qwen, DeepSeek, MiniMax, NVIDIA NIM",
+        "First-run wizard installs dependencies and wires Ghostty config"
+      ],
+      "useCases": [
+        "Heavy Claude Code users who want a project switcher on every new terminal",
+        "Devs juggling multiple AI providers across projects",
+        "Anyone who wants visual distinction between project contexts"
+      ],
+      "screenshots": [
+        {
+          "label": "Dashboard",
+          "file": "./screenshots/dashboard.png"
+        },
+        {
+          "label": "Project picker",
+          "file": "./screenshots/project-picker.png"
+        },
+        {
+          "label": "Provider picker",
+          "file": "./screenshots/provider-picker.png"
+        }
+      ]
+    },
+    "dsh-claude-live": {
+      "displayName": "dsh-claude-live",
+      "author": "kaiomp",
+      "authorUrl": "https://github.com/kaiomp",
+      "categories": [
+        "DeepSeek Harness",
+        "Agents",
+        "Claude Code"
+      ],
+      "tagline": "Run Claude Code as a subagent inside DeepSeek Harness, with its steps streaming live into the session view.",
+      "description": "A DeepSeek Harness plugin that dispatches Claude Code headless as a subagent and pushes a throttled digest of its steps into the session UI while the run is still in flight. Uses the tool/code-dispatch event pair the released harness already understands, so sessions stay replayable in the web viewer.",
+      "install": "dsh plugin --profile web add dsh-claude-live",
+      "externalRepo": "https://github.com/flykit-cc/dsh-claude-live",
+      "features": [
+        "Live digest rows while the child runs — pushed, not polled",
+        "One tool (claude_live), one child process, no registry or role library",
+        "Works on the released harness (0.1.1-rc.2+) — no unreleased core needed",
+        "Permission modes: readonly (plan), full, or Claude's own configuration",
+        "Hard timeout with process-group SIGTERM/SIGKILL; cancellation kills the child"
+      ],
+      "useCases": [
+        "DeepSeek plans and orchestrates while Claude Code executes chunks, both visible in one session",
+        "Long refactors you want to watch instead of poll",
+        "Harness users who need replayable sessions in the web UI"
+      ]
     },
     "dsh-flykit": {
       "displayName": "dsh-flykit",
@@ -63,20 +136,21 @@
         "Claude Code"
       ],
       "tagline": "Fly your agents. Turn the dsh web GUI into an agent cockpit — explorer, agent terminals, model picker, usage bars, status line.",
-      "description": "A DeepSeek Harness plugin that turns the dsh web GUI into an agent cockpit: an Explorer panel with a file tree, an editor that saves to disk and live file watch; an Agents tab running real PTY terminals for Claude Code, Pi, Codex or a plain shell; flykit_agent_* tools so the DSH agent can drive those terminals itself; a searchable model picker over the live OpenRouter catalog; Claude subscription usage bars; and a Claude-Code-style status line under the composer.",
+      "description": "A DeepSeek Harness plugin that ships two halves from one manifest: a Cordis host plugin serving routes under /api/flykit/*, and a client bundle that injects React into the shell's slots. It adds an Explorer panel with a CodeMirror editor and live file watch, an Agents tab running real PTY terminals for Claude Code, Pi, Codex or a plain shell, a searchable model picker, Claude subscription usage bars, and a Claude-Code-style status line under the composer. The main DSH agent can drive those terminals itself through the flykit_agent_* tools.",
       "install": "dsh plugin --profile web add github:flykit-cc/dsh-flykit",
       "installNote": "npm publish is coming. For now install straight from GitHub, or clone the repo and run dsh plugin --profile web add . from the checkout.",
       "externalRepo": "https://github.com/flykit-cc/dsh-flykit",
       "features": [
-        "Explorer panel with a file tree, an editor that saves to disk, Markdown / HTML / SVG preview, and live file watch over SSE",
+        "Status line under the composer — idle / thinking / running tool, turn timer, git branch and dirty count, context ring recolour",
+        "Explorer panel with a file tree, a CodeMirror editor that saves to disk, and Markdown / HTML / SVG preview",
+        "Live file watch over SSE — refreshes the tree, dots changed files, follows the open file as it changes on disk",
         "Agents tab with real PTY terminals in the session workspace: Claude Code, Pi, Codex, or a plain shell",
         "flykit_agent_* tools so the DSH agent can start, send to, read, wait on and stop those terminals",
-        "Searchable model picker over the live OpenRouter catalog, with favourites, recents and reasoning badges",
-        "Claude subscription usage bars — 5-hour, weekly and weekly top model — beside a Claude Code terminal",
-        "Status line under the composer: idle / thinking / running tool, turn timer, git branch and dirty count"
+        "Searchable model picker with favourites and recents, sharing state with the shell's own /model",
+        "Claude subscription usage bars (5-hour, weekly, weekly top model) beside a Claude Code terminal"
       ],
       "useCases": [
-        "Watching and steering several Claude Code runs from one DSH session",
+        "Watching and steering N Claude Code runs from one DSH session",
         "Editing files next to the conversation instead of switching to an editor",
         "Harness users who want a cockpit — status, files, terminals — in the web GUI"
       ],

@@ -34,7 +34,7 @@ export default async function HomePage() {
                 className="inline-block h-2 w-2 rounded-full"
                 style={{ backgroundColor: "var(--terminal-green)" }}
               />
-              <span className="text-foreground">{plugins.length} {plugins.length === 1 ? "Plugin" : "Plugins"}</span>
+              <span className="text-foreground">{plugins.length + tools.length} Tools</span>
               <span className="text-muted-foreground">·</span>
               <span className="text-muted-foreground">Open source</span>
             </div>
@@ -47,7 +47,7 @@ export default async function HomePage() {
                 >
                   {">"}
                 </span>
-                <span>Claude Code</span>
+                <span>Claude Code · DeepSeek Harness</span>
               </p>
               <h1
                 className="font-mono"
@@ -65,12 +65,24 @@ export default async function HomePage() {
             </div>
 
             <p className="max-w-xl font-sans text-base text-muted-foreground md:text-lg">
-              flykit is an open-source marketplace of Claude Code plugins for
-              real-world workflows. Install, run, contribute.
+              Fly your agents. flykit is an open-source registry of tools and
+              plugins for AI coding agents — Claude Code and DeepSeek Harness
+              today. Install, run, contribute.
             </p>
 
-            <div className="w-full max-w-xl">
-              <CodeBlock code="claude /plugin marketplace add flykit-cc/flykit" />
+            <div className="flex w-full max-w-xl flex-col gap-3">
+              <div className="space-y-1.5 text-left">
+                <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  Claude Code
+                </p>
+                <CodeBlock code="claude /plugin marketplace add flykit-cc/flykit" />
+              </div>
+              <div className="space-y-1.5 text-left">
+                <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  DeepSeek Harness
+                </p>
+                <CodeBlock code="dsh plugin --profile web add dsh-claude-live" />
+              </div>
             </div>
           </div>
         </div>
@@ -84,7 +96,7 @@ export default async function HomePage() {
               className="font-mono"
               style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 500, letterSpacing: "-1px" }}
             >
-              <span className="text-foreground">Available </span>
+              <span className="text-foreground">Claude Code </span>
               <span className="text-muted-foreground">Plugins</span>
             </h2>
             <Link
@@ -161,12 +173,13 @@ export default async function HomePage() {
               className="font-mono"
               style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 500, letterSpacing: "-1px" }}
             >
-              <span className="text-foreground">Companion </span>
+              <span className="text-foreground">Agent </span>
               <span className="text-muted-foreground">Tools</span>
             </h2>
           </div>
           <p className="mb-10 max-w-2xl font-sans text-base text-muted-foreground">
-            Standalone tools for Claude Code. Not plugins — install via npm or brew.
+            Standalone tools and DeepSeek Harness plugins. Each card shows the
+            ecosystem it runs in and the command that installs it.
           </p>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -248,7 +261,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="outline">MIT licensed</Badge>
-              <Badge variant="outline">Built for Claude Code</Badge>
+              <Badge variant="outline">Claude Code + DeepSeek Harness</Badge>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -290,10 +303,11 @@ export default async function HomePage() {
             <AccordionItem value="q1">
               <AccordionTrigger>What is flykit?</AccordionTrigger>
               <AccordionContent>
-                flykit is an open-source marketplace of Claude Code plugins
-                focused on real-world workflows — taxes, finance, ops. Each
-                plugin bundles slash commands, skills, and prompts you can
-                install with one command.
+                flykit is an open-source registry of tools and plugins for AI
+                coding agents — Claude Code and DeepSeek Harness today. Claude
+                Code plugins bundle slash commands, skills, and prompts; dsh
+                plugins extend the DeepSeek Harness GUI. Both install with one
+                command.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
@@ -307,16 +321,22 @@ export default async function HomePage() {
                 <code className="font-mono text-foreground">
                   /plugin install &lt;name&gt;@flykit
                 </code>{" "}
-                to install a specific plugin.
+                to install a specific plugin. For a DeepSeek Harness plugin,
+                run{" "}
+                <code className="font-mono text-foreground">
+                  dsh plugin --profile web add &lt;name&gt;
+                </code>{" "}
+                instead — each tool page shows its exact command.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
               <AccordionTrigger>Is it safe?</AccordionTrigger>
               <AccordionContent>
                 All plugins are MIT-licensed and the source is on GitHub — read
-                it before you install. Plugins run inside your local Claude
-                Code session and only touch the files and APIs you grant access
-                to.
+                it before you install. Everything runs on your own machine —
+                inside your Claude Code session, or inside your local DeepSeek
+                Harness — and only touches the files, terminals, and APIs you
+                grant access to.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q4">
@@ -341,9 +361,9 @@ export default async function HomePage() {
             <AccordionItem value="q6">
               <AccordionTrigger>Where is my data stored?</AccordionTrigger>
               <AccordionContent>
-                Plugins run locally in your Claude Code session and read and
-                write files on your machine — flykit operates no backend of its
-                own. This site is hosted on Vercel, which logs incoming
+                Everything runs locally — in your Claude Code session or your
+                own DeepSeek Harness instance — and reads and writes files on
+                your machine. flykit operates no backend of its own. This site is hosted on Vercel, which logs incoming
                 requests per their policy; see{" "}
                 <Link href="/privacy" className="underline">
                   /privacy
