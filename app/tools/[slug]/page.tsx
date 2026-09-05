@@ -132,7 +132,6 @@ export default async function ToolPage({
             </Link>
             <span className="text-muted-foreground" aria-hidden>·</span>
             <div className="flex flex-wrap gap-2">
-              <Badge>{ecosystemLabel(tool.ecosystem)}</Badge>
               {tool.web.categories.map((c) => (
                 <Badge key={c} variant="outline">{c}</Badge>
               ))}

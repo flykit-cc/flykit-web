@@ -16,7 +16,6 @@ export const isDownload = (install: string) => /^https?:\/\//.test(install);
 
 export type Tool = {
   name: string;
-  ecosystem?: Ecosystem;
   slug: string;
   description: string;
   repo: string;
@@ -72,17 +71,7 @@ export async function getTools(): Promise<FullTool[]> {
     tools.map(async (t) => {
       const webPath = t.web.replace(/^\.\//, "");
       const web = await fetchJSON<ToolWeb>(`${BASE_RAW}/${webPath}`);
-      const resolved = web ?? fb.webByTool[t.slug];
-      // web.json omits optional list fields; default them so consumers can just read .length
-      return {
-        ...t,
-        web: resolved && {
-          ...resolved,
-          features: resolved.features ?? [],
-          useCases: resolved.useCases ?? [],
-          screenshots: resolved.screenshots ?? [],
-        },
-      };
+      return { ...t, web: web ?? fb.webByTool[t.slug] };
     })
   );
 
